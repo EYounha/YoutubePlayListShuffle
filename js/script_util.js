@@ -18,9 +18,19 @@ const playlistTitleCache = {};
 
 async function apiFetch(url) {
     try {
+        // API 키 유효성 검사
+        if (!getapi || getapi.trim() === '') {
+            promptForApiKey();
+            throw new Error("API 키가 설정되지 않았습니다. API 키를 설정해주세요.");
+        }
+
         console.log("API 요청:", url);
         const res = await fetch(url);
         if (!res.ok) {
+            if (res.status === 403) {
+                showToast("API 키가 유효하지 않거나 할당량이 초과되었습니다.");
+                promptForApiKey();
+            }
             throw new Error("Request failed with status " + res.status);
         }
         return res.json();
