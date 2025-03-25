@@ -38,6 +38,8 @@ jobs:
         with:
           # Upload entire repository
           path: '.'
+      - name: Inject secret
+        run: sed -i 's/__API_KEY__/${{ secrets.API_KEY }}/g' js/key.js
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
