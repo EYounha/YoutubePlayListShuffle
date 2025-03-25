@@ -4,7 +4,7 @@ name: Deploy static content to Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["V1.0.0"]
+    branches: ["main"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -38,8 +38,6 @@ jobs:
         with:
           # Upload entire repository
           path: '.'
-      - name: Inject secret
-        run: sed -i 's/__API_KEY__/${{ secrets.API_KEY }}/g' js/key.js
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
