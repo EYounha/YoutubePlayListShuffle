@@ -1,0 +1,25 @@
+{
+    "name": "YouTube Playlist Shuffle",
+    "short_name": "YT Shuffle",
+    "icons": [
+        {
+            "src": "favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#6a11cb",
+    "background_color": "#121212",
+    "display": "standalone",
+    "content_security_policy": "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' https://www.youtube.com https://www.googleapis.com; img-src 'self' https://i.ytimg.com; frame-src 'self' https://www.youtube.com; connect-src 'self' https://www.googleapis.com;"
+}

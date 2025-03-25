@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<head>
+    <!-- 메타데이터 설정 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 파비콘 설정 -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <!-- YouTube IFrame API 추가 -->
+    <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
+    <script type="text/javascript" src="js/key.js"></script>
+    <script type="text/javascript" src="js/youtubePlayer.js"></script>
+    <script type="text/javascript" src="js/script_history.js"></script>
+    <script type="text/javascript" src="js/script_main.js"></script>
+    <script type="text/javascript" src="js/script_controls.js"></script>
+    <script type="text/javascript" src="js/script_repeat.js"></script>
+    <script type="text/javascript" src="js/script_ui.js"></script>
+    <script type="text/javascript" src="js/script_util.js"></script>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/panel_container.css">
+    <link rel="stylesheet" href="css/main_container.css">
+    <link rel="stylesheet" href="css/list_container.css">
+    <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <title>YouTube Playlist Shuffle</title>
+</head>
+
+<body>
+    <div id="mainContainer" class="main-container">
+        <div>
+            <!-- 메인 컨테이너 -->
+            <div id="container" class="container">
+                <h1>YouTube Playlist Shuffle</h1> <!-- 제목 -->
+                <div id="inputContainer">
+                    <input type="text" id="playlistUrl" name="playlistUrl"
+                        placeholder="YouTube Playlist URL"> <!-- 입력 필드 -->
+                    <button onclick="fetchAndDisplayPlaylist()">
+                        <span>PLAY</span>
+                    </button> <!-- 버튼 -->
+                </div>
+                <!-- 진행 상태 표시 영역 추가 -->
+                <div id="statusContainer" class="status-container" style="display:none;">
+                    <div class="status-spinner"></div>
+                    <div id="statusMessage">재생목록 불러오는 중...</div>
+                    <div id="progressContainer" class="progress-container">
+                        <div id="progressBar" class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="playlistInfo" class="playlist-info playlist-container"
+                style="display:none;"></div>
+            <!-- 플레이리스트 정보 표시 영역 -->
+        </div>
+        <div>
+            <!-- 아래 두 컨테이너 초기 숨김 -->
+            <div id="controlPanel" class="control-panel"
+                style="display:none;">
+                <h2 id="playlistTitle" style="padding: 0px;"></h2>
+                <h3 id="playlistCount" style="padding: 0px;"></h3>
+                <div class="button-container">
+                    <div class="control-button">
+                        <button onclick="prevVideo()">
+                            <svg width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="#ffffff"
+                                stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2">
+                                <polyline
+                                    points="15 18 9 12 15 6"></polyline>
+                            </svg>
+                        </button>
+                        <span>이전곡</span>
+                    </div>
+                    <div class="control-button">
+                        <button onclick="nextVideo()">
+                            <svg width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="#ffffff"
+                                stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2">
+                                <polyline
+                                    points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </button>
+                        <span>다음곡</span>
+                    </div>
+                    <div class="control-button">
+                        <button onclick="shufflePlaylistOrder()">
+                            <svg width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="#ffffff"
+                                stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2">
+                                <polyline
+                                    points="16 3 21 3 21 8"></polyline>
+                                <line x1="4" y1="20" x2="21" y2="3"></line>
+                                <polyline
+                                    points="21 16 21 21 16 21"></polyline>
+                                <line x1="4" y1="4" x2="21" y2="21"></line>
+                            </svg>
+                        </button>
+                        <span>셔플</span>
+                    </div>
+                    <div class="control-button">
+                        <button onclick="shareVideo()">
+                            <svg width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="#ffffff"
+                                stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2">
+                                <circle cx="18" cy="5" r="3"></circle>
+                                <circle cx="6" cy="12" r="3"></circle>
+                                <circle cx="18" cy="19" r="3"></circle>
+                                <line x1="8.59" y1="13.51" x2="15.42"
+                                    y2="17.49"></line>
+                                <line x1="15.41" y1="6.51" x2="8.59"
+                                    y2="10.49"></line>
+                            </svg>
+                        </button>
+                        <span>공유</span>
+                    </div>
+                </div>
+            </div>
+            <div id="videoPlayerContainer" class="video-player-container"
+                style="display:none;">
+                <div id="videoPlayer" class="video-player"></div>
+                <!-- 유튜브 비디오 플레이어 영역 -->
+            </div>
+        </div>
+    </div>
+
+    <div id="historyContainerWrapper" class="history-outer-container collapsed">
+        <div class="history-header">
+            <h2>최근 입력 URL</h2>
+            <button id="toggleHistoryBtn" class="toggle-history-btn" onclick="toggleHistoryPanel()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" 
+                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                </svg>
+            </button>
+        </div>
+        <div id="urlHistoryContainer" class="url-history-container">
+            <!-- 최근 URL 리스트 표시용 -->
+        </div>
+    </div>
+
+    <script>
+        function toggleHistoryPanel() {
+            const historyContainer = document.getElementById('historyContainerWrapper');
+            const toggleBtn = document.getElementById('toggleHistoryBtn');
+            
+            if (historyContainer.classList.contains('collapsed')) {
+                historyContainer.classList.remove('collapsed');
+                historyContainer.classList.add('expanded');
+                // 아이콘 회전 (화살표 방향 변경)
+                toggleBtn.querySelector('svg polyline').setAttribute('points', '18 9 12 15 6 9');
+            } else {
+                historyContainer.classList.remove('expanded');
+                historyContainer.classList.add('collapsed');
+                // 아이콘 회전 (화살표 방향 변경)
+                toggleBtn.querySelector('svg polyline').setAttribute('points', '18 15 12 9 6 15');
+            }
+        }
+
+        // 페이지 로드 시 히스토리 패널 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            // 초기 상태는 축소된 상태로 시작
+            const historyContainer = document.getElementById('historyContainerWrapper');
+            if (historyContainer) {
+                historyContainer.classList.add('collapsed');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+:root {
+    --scale-hover: 1.03;
+}
+
+#container {
+    background-color: #1f1f1f;
+    height: 180px;
+    transition: transform 0.3s ease;
+}
+
+#container:hover {
+    transform: scale(var(--scale-hover));
+}
+
+#inputContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    flex-direction: column;
+}
+
+/* 입력창 스타일 */
+#playlistUrl {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #f8f8f8;
+    border-radius: 8px;
+    background-color: #1f1f1f;
+    color: #ffffff;
+    font-size: 16px;
+    font-family: 'Freesentation-9Black', Arial, sans-serif;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 2vh;
+}
+
+#playlistUrl:focus {
+    border-color: #6a11cb;
+    /* 그라데이션 색상 */
+    box-shadow: 0 0 8px rgba(106, 17, 203, 0.5);
+    /* 버튼 색상과 유사한 그림자 */
+}
+
+#playlistUrl::placeholder {
+    color: #aaaaaa;
+}
+
+#playlistUrl {
+    color: #ffffff;
+    /* 입력창 글자색을 흰색으로 설정 */
+}
+
+.main-container {
+    display: flex;
+    flex-direction: row;
+    transition: transform 1s ease;
+}
+
+@media screen and (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        /* 항상 가운데 정렬 */
+    }
+
+    #container {
+        height: auto;
+        /* 고정 높이 해제 */
+        padding: 20px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .main-container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    #container {
+        width: 100%;
+        padding: 10px;
+    }
+}
