@@ -5,15 +5,13 @@
 
     // 1. Actions에서 생성한 api_config.js에서 가져온 API 키 확인
     if (typeof window.YOUTUBE_API_KEY !== 'undefined' && window.YOUTUBE_API_KEY !== '') {
-        window.getapi = window.YOUTUBE_API_KEY;
-        console.log("GitHub Actions에서 제공한 API 키를 사용합니다.");
+        window.getapi = window.YOUTUBE_API_KEY.replace(/["']/g, '');
     }
 
     // 2. 사용자 입력 API 키 (로컬 스토리지에서 가져오기)
     const savedApiKey = localStorage.getItem('youtubeApiKey');
     if (savedApiKey && (!window.getapi || window.getapi === '')) {
         window.getapi = savedApiKey;
-        console.log("저장된 API 키를 사용합니다.");
     }
 
     // 3. URL 파라미터에서 API 키 확인
@@ -22,7 +20,6 @@
     if (apiKeyParam) {
         window.getapi = apiKeyParam;
         localStorage.setItem('youtubeApiKey', apiKeyParam);
-        console.log("URL에서 제공된 API 키를 사용합니다.");
 
         // URL에서 API 키 파라미터 제거 (보안)
         window.history.replaceState({}, document.title, window.location.pathname);
