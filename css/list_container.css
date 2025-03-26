@@ -8,7 +8,7 @@
     gap: 10px;
     margin-top: 20px;
     text-align: left;
-    color: #ffffff;
+    color: var(--text-color);
     overflow-x: hidden;
 }
 
@@ -16,15 +16,15 @@
     display: flex;
     align-items: center;
     padding: 10px;
-    border-radius: 8px;
+    border-radius: var(--border-radius-small);
     background: #242424;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .video-item:hover {
     transform: translateY(-3px);
-    background: #3a3a3a;
-    box-shadow: 0 4px 8px rgba(7, 7, 7, 0.5);
+    background: var(--item-hover-bg);
+    box-shadow: var(--box-shadow);
 }
 
 .video-item img {
@@ -47,7 +47,7 @@
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 16px;
     font-weight: bold;
-    color: #a850f0;
+    color: var(--text-highlight);
     margin: 0 0 4px 0;
     line-height: 1.2;
     display: -webkit-box;
@@ -59,7 +59,7 @@
 .video-details .video-channel {
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 14px;
-    color: #aaa;
+    color: var(--text-muted);
     margin: 0;
     white-space: normal;
     display: inline-block;
@@ -68,11 +68,11 @@
 }
 
 .playlist-container {
-    background-color: #2a2a2a;
+    background-color: var(--panel-bg);
     padding: 20px;
     border-radius: 10px;
-    margin-top: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 10px auto;
+    box-shadow: var(--box-shadow);
     max-height: 400px;
     width: 600px;
     overflow-y: auto;
@@ -88,14 +88,13 @@
 }
 
 .playlist-container::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #6a11cb, #2575fc);
-    /* 초록색에서 버튼 스타일과 비슷한 색으로 변경 */
+    background: var(--primary-gradient);
     border-radius: 10px;
-    border: 2px solid #1f1f1f;
+    border: 2px solid var(--dark-bg);
 }
 
 .playlist-container::-webkit-scrollbar-track {
-    background-color: #1f1f1f;
+    background-color: var(--dark-bg);
 }
 
 .video-player-container {
@@ -108,7 +107,7 @@
     border-radius: 15px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     padding: 20px;
-    margin-left: 20px;
+    margin: 10px auto 0;
     transition: transform 0.3s ease;
 }
 
@@ -138,48 +137,18 @@
     transform: translateY(-3px);
     background: #3a3a3a;
     box-shadow: 0 6px 12px rgba(106, 17, 203, 0.5);
-    /* 버튼 스타일과 유사한 그림자 */
 }
 
 .video-item-container-error .video-item {
-    background: #5a1a1a;
-    border: 1px solid #ff4d4d;
-    color: #ffffff;
+    background: var(--error-bg);
+    border: 1px solid var(--error-color);
+    color: var(--text-color);
     opacity: 0.8;
 }
-
 
 .video-item-container-event-error .video-item {
-    background: #6e4a14;
-    border: 1px solid #ff9800;
-    color: #ffffff;
+    background: var(--warning-bg);
+    border: 1px solid var(--warning-color);
+    color: var(--text-color);
     opacity: 0.8;
-}
-
-@media screen and (max-width: 768px) {
-
-    .playlist-container,
-    .video-player-container {
-        width: 95%;
-        margin: 10px auto;
-        /* max-height 설정 제거 */
-        /* max-height: 50vh; */
-    }
-
-    .video-player {
-        height: 250px;
-    }
-}
-
-@media screen and (max-width: 400px) {
-
-    .playlist-container,
-    .video-player-container {
-        width: 100%;
-        margin: 10px 0;
-    }
-
-    .video-player {
-        height: 200px;
-    }
 }

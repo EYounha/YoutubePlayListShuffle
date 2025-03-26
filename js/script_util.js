@@ -19,18 +19,16 @@ async function apiFetch(url) {
     try {
         // API 키 유효성 검사
         if (!getapi || getapi.trim() === '') {
-            promptForApiKey();
-            throw new Error("API 키가 설정되지 않았습니다. API 키를 설정해주세요.");
+            showToast("API 키가 설정되지 않았습니다.");
+            throw new Error("API 키가 설정되지 않았습니다.");
         }
 
         const res = await fetch(url);
         if (!res.ok) {
             if (res.status === 403) {
                 showToast("API 키가 유효하지 않거나 할당량이 초과되었습니다.");
-                promptForApiKey();
             } else if (res.status === 400) {
-                showToast("잘못된 요청입니다. API 키를 확인해주세요.");
-                promptForApiKey();
+                showToast("잘못된 요청입니다.");
             }
             throw new Error("Request failed with status " + res.status);
         }

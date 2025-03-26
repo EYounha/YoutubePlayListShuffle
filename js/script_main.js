@@ -105,9 +105,13 @@ async function fetchAndDisplayPlaylist() {
             setButtonState(false, originalButtonHtml, originalButtonBg);
         } catch (error) {
             console.error('Failed to fetch playlist info:', error);
-            const msg = error.message && error.message.toLowerCase().includes("quota") ?
-                "API 할당량 초과입니다. 나중에 다시 시도해주세요." :
-                "영상 정보를 불러오는데 실패했습니다. 나중에 다시 시도해주세요.";
+            let msg = "영상 정보를 불러오는데 실패했습니다.";
+
+            if (error.message && error.message.toLowerCase().includes("api") && error.message.toLowerCase().includes("key")) {
+                msg = "API 키 오류가 발생했습니다. 나중에 다시 시도해주세요.";
+            } else if (error.message && error.message.toLowerCase().includes("quota")) {
+                msg = "API 할당량 초과입니다. 나중에 다시 시도해주세요.";
+            }
 
             hideStatus();
             showToast(msg);

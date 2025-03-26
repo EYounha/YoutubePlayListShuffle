@@ -1,10 +1,9 @@
-:root {
-    --scale-hover: 1.03;
-}
-
 #container {
-    background-color: #1f1f1f;
+    background-color: var(--dark-bg);
     height: 180px;
+    border-radius: var(--border-radius);
+    margin: 0 auto 20px auto;
+    /* 중앙 정렬을 위해 좌우 마진 auto로 설정 */
     transition: transform 0.3s ease;
 }
 
@@ -25,9 +24,9 @@
     width: 100%;
     padding: 12px 15px;
     border: 1px solid #f8f8f8;
-    border-radius: 8px;
-    background-color: #1f1f1f;
-    color: #ffffff;
+    border-radius: var(--border-radius-small);
+    background-color: var(--dark-bg);
+    color: var(--text-color);
     font-size: 16px;
     font-family: 'Freesentation-9Black', Arial, sans-serif;
     box-sizing: border-box;
@@ -44,43 +43,27 @@
 }
 
 #playlistUrl::placeholder {
-    color: #aaaaaa;
+    color: var(--text-muted);
 }
 
 #playlistUrl {
-    color: #ffffff;
+    color: var(--text-color);
     /* 입력창 글자색을 흰색으로 설정 */
 }
 
 .main-container {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    /* 화면이 좁아질 때 요소들이 줄바꿈되도록 설정 */
+    justify-content: center;
+    /* 중앙 정렬 */
+    align-items: center;
+    /* 수직 중앙 정렬 */
     transition: transform 1s ease;
-}
-
-@media screen and (max-width: 768px) {
-    .main-container {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        /* 항상 가운데 정렬 */
-    }
-
-    #container {
-        height: auto;
-        /* 고정 높이 해제 */
-        padding: 20px;
-    }
-}
-
-@media screen and (max-width: 400px) {
-    .main-container {
-        width: 100%;
-        padding: 10px;
-    }
-
-    #container {
-        width: 100%;
-        padding: 10px;
-    }
+    width: 100%;
+    margin: 0 auto;
+    /* 중앙 정렬 */
+    gap: 20px;
+    /* 요소 사이 간격 */
 }

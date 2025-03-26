@@ -1,12 +1,8 @@
-:root {
-    --scale-hover: 1.03;
-}
-
 /* PLAY 버튼 스타일 */
 button {
     padding: 14px 40px;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    color: white;
+    background: var(--primary-gradient);
+    color: var(--text-color);
     border: none;
     border-radius: 30px;
     font-family: 'Arial', sans-serif;
@@ -15,16 +11,16 @@ button {
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--box-shadow);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
 }
 
 button:hover {
-    background: linear-gradient(135deg, #2575fc, #6a11cb);
-    transform: scale(1.03);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    background: var(--reverse-gradient);
+    transform: scale(var(--scale-hover));
+    box-shadow: var(--box-shadow-hover);
 }
 
 button:active {
@@ -63,23 +59,7 @@ button:hover::before {
     /* 흔들림 애니메이션 */
 }
 
-@keyframes shake {
-    0%, 100% {
-        transform: translateX(0);
-    }
-
-    25% {
-        transform: translateX(-3px);
-    }
-
-    50% {
-        transform: translateX(3px);
-    }
-
-    75% {
-        transform: translateX(-3px);
-    }
-}
+/* 애니메이션 정의 제거 - base.css로 이동 */
 
 /* 스피너 추가 */
 .spinner {
@@ -92,12 +72,4 @@ button:hover::before {
     margin: -2px auto;
 }
 
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
+/* 애니메이션 정의 제거 - base.css로 이동 */

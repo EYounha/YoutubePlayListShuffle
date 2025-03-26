@@ -1,0 +1,12 @@
+# API 키 관련 파일
+/js/debug_api_key.js
+/js/api_config.js
+
+# 에디터 설정
+.vscode/
+.idea/
+
+# 캐시 및 로그
+.DS_Store
+node_modules/
+*.log

@@ -1,19 +1,15 @@
-:root {
-    --scale-hover: 1.03;
-}
-
 .control-panel {
     width: 600px;
     height: 180px;
-    background-color: #2a2a2a;
-    border-radius: 15px;
-    margin: 0 0 20px 20px;
+    background-color: var(--panel-bg);
+    border-radius: var(--border-radius);
+    margin: 0 auto 20px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--box-shadow);
     transition: transform 0.3s ease;
 }
 
@@ -26,8 +22,7 @@
     margin: 0;
     padding: 10px 0;
     text-align: center;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    /* 그라데이션 색상 */
+    background: var(--primary-gradient);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -35,7 +30,7 @@
 
 .control-panel h3 {
     font-size: 18px;
-    color: #ffffff;
+    color: var(--text-color);
     margin: 0;
     padding: 5px 0;
     text-align: center;
@@ -50,8 +45,8 @@
 
 .control-panel button {
     padding: 14px 40px;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    color: white;
+    background: var(--primary-gradient);
+    color: var(--text-color);
     border: none;
     border-radius: 30px;
     font-family: 'Arial', sans-serif;
@@ -67,9 +62,9 @@
 }
 
 .control-panel button:hover {
-    background: linear-gradient(135deg, #2575fc, #6a11cb);
+    background: var(--reverse-gradient);
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--box-shadow-hover);
 }
 
 .control-panel button:active {
@@ -148,18 +143,4 @@
     color: #fff;
     font-size: 14px;
     font-family: 'Freesentation-9Black', Arial, sans-serif;
-}
-
-@media screen and (max-width: 768px) {
-    .control-panel {
-        width: 95%;
-        margin: 0 auto 20px;
-    }
-}
-
-@media screen and (max-width: 400px) {
-    .control-panel {
-        width: 100%;
-        margin: 0 0 20px;
-    }
 }
