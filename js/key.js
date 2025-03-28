@@ -5,18 +5,31 @@
 
     // API 키를 안전하게 사용하기 위한 함수
     function initializeApiKey() {
+        // api_config.js 파일에서 API 키를 로드하기 전에 임시 핸들러 설정
+        const originalYoutubeApiKey = window.YOUTUBE_API_KEY;
+
+        // API 키 설정이 발견되면 즉시 원본 참조 제거
+        if (typeof originalYoutubeApiKey !== 'undefined' && originalYoutubeApiKey !== '') {
+            secureApiKey = originalYoutubeApiKey.replace(/["']/g, '');
+            console.log('[INFO] API key securely loaded from config');
+
+            // 원본 참조 삭제
+            window.YOUTUBE_API_KEY = '';
+            try {
+                delete window.YOUTUBE_API_KEY;
+            } catch (e) {
+                // 삭제할 수 없는 경우 빈 값으로 유지
+            }
+        }
+
         // 1. 디버그 API 키 확인 (개발 환경용)
-        if (typeof window.DEBUG_API_KEY !== 'undefined' && window.DEBUG_API_KEY !== '') {
+        if (!secureApiKey && typeof window.DEBUG_API_KEY !== 'undefined' && window.DEBUG_API_KEY !== '') {
             secureApiKey = window.DEBUG_API_KEY.replace(/["']/g, '');
             console.log('[DEBUG] Debug API key is set');
         }
-        // 2. Actions에서 생성한 api_config.js에서 가져온 API 키 확인
-        else if (typeof window.YOUTUBE_API_KEY !== 'undefined' && window.YOUTUBE_API_KEY !== '') {
-            secureApiKey = window.YOUTUBE_API_KEY.replace(/["']/g, '');
-            console.log('[INFO] Production API key is set');
-        }
-        // 3. 로컬 스토리지에서 가져오기
-        else {
+
+        // 2. 로컬 스토리지에서 가져오기
+        if (!secureApiKey) {
             const savedApiKey = localStorage.getItem('youtubeApiKey');
             if (savedApiKey && savedApiKey.trim() !== '') {
                 secureApiKey = savedApiKey;
@@ -24,7 +37,7 @@
             }
         }
 
-        // 4. URL 파라미터에서 API 키 확인 (임시 테스트 목적)
+        // 3. URL 파라미터에서 API 키 확인 (임시 테스트 목적)
         const urlParams = new URLSearchParams(window.location.search);
         const apiKeyParam = urlParams.get('apiKey');
         if (apiKeyParam) {
