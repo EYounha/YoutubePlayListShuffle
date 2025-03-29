@@ -1,14 +1,17 @@
 // YouTube IFrame Player API 관련 변수 선언
-let player;
-let isPlayerReady = false;
-let scrollThrottleTimer = null;
+let player;                   // YouTube 플레이어 인스턴스
+let isPlayerReady = false;    // 플레이어 초기화 상태
+let scrollThrottleTimer = null; // 스크롤 성능 최적화를 위한 타이머
 
-// 자동 스크롤 관련 변수 추가
-let userScrolledRecently = false;
-let userScrollTimeout = null;
-const USER_SCROLL_TIMEOUT_MS = 8000; // 사용자가 스크롤한 후 5초 동안 자동 스크롤 비활성화
+// 자동 스크롤 관련 변수
+let userScrolledRecently = false;  // 사용자가 최근에 스크롤했는지 여부
+let userScrollTimeout = null;      // 사용자 스크롤 타임아웃 ID
+const USER_SCROLL_TIMEOUT_MS = 8000; // 사용자 스크롤 후 자동 스크롤 비활성화 시간(ms)
 
-// YouTube API가 준비되면 호출되는 함수
+/**
+ * YouTube IFrame API가 로드되면 자동으로 호출되는 콜백 함수
+ * 플레이어를 초기화하고 준비합니다.
+ */
 function onYouTubeIframeAPIReady() {
     console.log('YouTube IFrame API 준비 완료');
     isPlayerReady = true;
@@ -18,12 +21,12 @@ function onYouTubeIframeAPIReady() {
         height: '100%',
         width: '100%',
         playerVars: {
-            'autoplay': 0,
-            'rel': 0,
-            'modestbranding': 1,
-            'enablejsapi': 1,
-            'controls': 1,
-            'fs': 1,
+            'autoplay': 0,          // 자동 재생 비활성화
+            'rel': 0,               // 관련 동영상 표시 비활성화
+            'modestbranding': 1,    // YouTube 로고 최소화
+            'enablejsapi': 1,       // JavaScript API 활성화
+            'controls': 1,          // 플레이어 컨트롤 표시
+            'fs': 1,                // 전체 화면 버튼 활성화
         },
         events: {
             'onReady': onPlayerReady,
@@ -33,14 +36,23 @@ function onYouTubeIframeAPIReady() {
     });
 }
 
-// 플레이어가 준비되면 호출되는 함수
+/**
+ * 플레이어가 준비되면 호출되는 이벤트 핸들러
+ * @param {Object} event - YouTube 플레이어 이벤트 객체
+ */
 function onPlayerReady(event) {
     console.log('플레이어 준비 완료');
     // 플레이어가 준비되면 스크롤 이벤트 리스너 설정
     setupScrollListener();
 }
 
-// 플레이어 상태가 변경되면 호출되는 함수
+/**
+ * 플레이어 상태가 변경될 때 호출되는 이벤트 핸들러
+ * @param {Object} event - YouTube 플레이어 이벤트 객체
+ * 
+ * 영상 재생 종료 시 자동으로 다음 영상으로 넘어갑니다.
+ * 재생 상태가 되면 스크롤 최적화를 적용합니다.
+ */
 function onPlayerStateChange(event) {
     // 동영상이 종료되면 다음 동영상 재생
     if (event.data === YT.PlayerState.ENDED) {
@@ -54,7 +66,13 @@ function onPlayerStateChange(event) {
     }
 }
 
-// 플레이어 오류 발생 시 호출되는 함수
+/**
+ * 플레이어 오류 발생 시 호출되는 이벤트 핸들러
+ * @param {Object} event - YouTube 플레이어 오류 이벤트 객체
+ * 
+ * 오류 코드에 따라 적절한 메시지를 표시하고, 
+ * 현재 영상에 오류 표시 후 다음 영상으로 자동 이동합니다.
+ */
 function onPlayerError(event) {
     console.error('플레이어 오류:', event.data);
 
@@ -90,7 +108,13 @@ function onPlayerError(event) {
     }, 2000);
 }
 
-// 비디오 재생 함수 - YouTube API를 활용하도록 수정
+/**
+ * YouTube 영상 재생 함수
+ * @param {string} videoUrl - 재생할 영상의 YouTube URL
+ * 
+ * URL에서 동영상 ID를 추출하여 플레이어에 로드합니다.
+ * 플레이어가 준비되지 않았다면 초기화합니다.
+ */
 function playVideo(videoUrl) {
     const videoId = extractVideoId(videoUrl);
     if (!videoId) {
@@ -117,12 +141,12 @@ function playVideo(videoUrl) {
             width: '100%',
             videoId: videoId,
             playerVars: {
-                'autoplay': 1,
-                'rel': 0,
-                'modestbranding': 1,
-                'enablejsapi': 1,
-                'controls': 1,
-                'fs': 1,
+                'autoplay': 1,  // 자동 재생 활성화
+                'rel': 0,       // 관련 동영상 표시 비활성화
+                'modestbranding': 1,  // YouTube 로고 최소화
+                'enablejsapi': 1,     // JavaScript API 활성화
+                'controls': 1,        // 플레이어 컨트롤 표시
+                'fs': 1,              // 전체 화면 버튼 활성화
             },
             events: {
                 'onReady': onPlayerReady,
@@ -142,7 +166,10 @@ function playVideo(videoUrl) {
     setTimeout(() => scrollToCurrentVideo(), 300);
 }
 
-// 스크롤 성능 최적화 함수
+/**
+ * 재생목록의 스크롤 성능을 최적화하는 함수
+ * CSS 변환과 최적화 속성을 적용하여 스크롤이 부드럽게 동작하도록 합니다.
+ */
 function optimizePlaylistScroll() {
     // 플레이리스트 컨테이너 찾기
     const playlistContainer = document.querySelector('.playlist-container');
@@ -163,7 +190,10 @@ function optimizePlaylistScroll() {
     });
 }
 
-// 스크롤 이벤트 리스너 설정 함수
+/**
+ * 스크롤 이벤트 리스너를 설정하는 함수
+ * 사용자가 최근에 스크롤했는지 감지하여 자동 스크롤 동작을 제어합니다.
+ */
 function setupScrollListener() {
     const playlistContainer = document.querySelector('.playlist-container');
     if (!playlistContainer) return;
@@ -184,7 +214,10 @@ function setupScrollListener() {
     }, { passive: true });
 }
 
-// 현재 재생 중인 비디오로 스크롤하는 함수
+/**
+ * 현재 재생 중인 영상 항목으로 스크롤하는 함수
+ * 사용자가 직접 스크롤한 후에는 일정 시간동안 자동 스크롤되지 않습니다.
+ */
 function scrollToCurrentVideo() {
     // 사용자가 최근에 스크롤했다면 자동 스크롤하지 않음
     if (userScrolledRecently) return;
@@ -208,26 +241,11 @@ function scrollToCurrentVideo() {
     }
 }
 
-// 비디오가 변경될 때마다 scrollToCurrentVideo 호출하도록 업데이트
-function updateCurrentVideoInfo(video) {
-    if (video) {
-        showCurrentVideoToast(video);
-        // 하이라이트 업데이트: 현재 재생중인 비디오에 클래스 추가
-        const container = document.getElementById('playlistInfo');
-        container.querySelectorAll('.video-item-container').forEach(item => {
-            if (item.getAttribute('data-index') === currentVideoIndex.toString()) {
-                item.classList.add('current-video');
-            } else {
-                item.classList.remove('current-video');
-            }
-        });
-
-        // 비디오가 변경되면 해당 항목으로 스크롤
-        setTimeout(() => scrollToCurrentVideo(), 300);
-    }
-}
-
-// 스크롤 쓰로틀링 함수
+/**
+ * 스크롤 이벤트에 쓰로틀링을 적용하는 함수
+ * 너무 많은 스크롤 이벤트 처리를 방지하여 성능을 개선합니다.
+ * @param {Event} event - 스크롤 이벤트 객체
+ */
 function throttleScroll(event) {
     if (!scrollThrottleTimer) {
         scrollThrottleTimer = setTimeout(() => {
@@ -237,7 +255,13 @@ function throttleScroll(event) {
     }
 }
 
-// 화면에 보이는 항목만 업데이트
+/**
+ * 화면에 보이는 항목만 고품질로 렌더링하는 최적화 함수
+ * @param {Event} event - 스크롤 이벤트 객체
+ * 
+ * 가상화(Virtualization) 개념을 적용한 최적화 함수로,
+ * 현재 화면에 보이는 항목만 풀 렌더링하고 보이지 않는 항목은 렌더링을 최적화합니다.
+ */
 function updateVisibleItems(event) {
     const container = event.target;
     const items = container.querySelectorAll('.playlist-item');
@@ -268,7 +292,10 @@ function updateVisibleItems(event) {
 // 플레이리스트 정보 표시 함수 래퍼 (기존 함수가 있다고 가정)
 const originalDisplayPlaylistInfo = typeof displayPlaylistInfo === 'function' ? displayPlaylistInfo : null;
 
-// 기존 displayPlaylistInfo 함수를 최적화된 버전으로 교체
+/**
+ * 기존 displayPlaylistInfo 함수를 최적화된 버전으로 래핑하는 코드
+ * 표시 후 스크롤 최적화와 이벤트 리스너를 추가합니다.
+ */
 if (originalDisplayPlaylistInfo) {
     window.displayPlaylistInfo = function (playlistInfo, title) {
         // 원래 함수 호출
@@ -280,6 +307,12 @@ if (originalDisplayPlaylistInfo) {
     };
 }
 
+/**
+ * YouTube 플레이어 초기화 함수
+ * @param {string} videoId - 초기화할 영상의 YouTube ID
+ * 
+ * YouTube API가 로드된 상태에서 플레이어를 초기화합니다.
+ */
 function initYouTubePlayer(videoId) {
     if (!window.YT || !YT.Player) {
         console.error("YouTube IFrame API가 로드되지 않았습니다.");
@@ -295,14 +328,10 @@ function initYouTubePlayer(videoId) {
     });
 }
 
-// 전역 스코프에 updateCurrentVideoInfo 함수 노출 (다른 파일에서 선언된 경우)
-if (typeof window.updateCurrentVideoInfo === 'function') {
-    const originalUpdateCurrentVideoInfo = window.updateCurrentVideoInfo;
-    window.updateCurrentVideoInfo = function (video) {
-        originalUpdateCurrentVideoInfo(video);
-        // 비디오 정보 업데이트 후 스크롤
-        setTimeout(() => scrollToCurrentVideo(), 300);
-    };
+// updateCurrentVideoInfo 함수 제거 - script_ui.js에서 통합적으로 관리
+// 함수 대신 참조만 유지하여 호환성 보장
+if (typeof window.updateCurrentVideoInfo !== 'function') {
+    console.warn('updateCurrentVideoInfo 함수가 정의되지 않았습니다. script_ui.js가 먼저 로드되었는지 확인하세요.');
 }
 
 // 페이지 로드 시 스크롤 이벤트 리스너 초기화

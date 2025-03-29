@@ -79,6 +79,49 @@ function displayPlaylistInfo(playlistInfo, playlistTitle) {
     document.getElementById('playlistCount').textContent = `${container.childElementCount}개의 영상을 불러왔습니다.`;
 }
 
+/**
+ * 현재 비디오 정보를 토스트로 표시하고 UI 하이라이트를 업데이트하는 함수
+ * 영상이 변경될 때마다 호출되어 현재 재생 중인 영상을 표시합니다.
+ */
+function updateCurrentVideoInfo(video) {
+    if (video) {
+        showCurrentVideoToast(video);
+        // 하이라이트 업데이트: 현재 재생중인 비디오에 클래스 추가
+        const container = document.getElementById('playlistInfo');
+        container.querySelectorAll('.video-item-container').forEach(item => {
+            if (item.getAttribute('data-index') === currentVideoIndex.toString()) {
+                item.classList.add('current-video');
+            } else {
+                item.classList.remove('current-video');
+            }
+        });
+    }
+}
+
+/**
+ * 토스트 메시지를 표시하는 함수
+ * 중복 방지를 위해 기존 토스트를 제거하고 새 토스트를 표시합니다.
+ * 여러 파일에서 사용되는 공통 UI 함수입니다.
+ */
+function showToast(message) {
+    document.querySelectorAll('.toast').forEach(t => t.remove());
+
+    const toast = document.createElement("div");
+    toast.textContent = message;
+    toast.className = "toast";
+    document.body.appendChild(toast);
+    setTimeout(() => {
+        toast.classList.add("fade-out");
+        toast.addEventListener("transitionend", () => {
+            toast.remove();
+        });
+    }, 1500);
+}
+
+/**
+ * 현재 비디오 정보를 포함한 확장된 토스트를 표시하는 함수
+ * 영상이 변경될 때 영상 썸네일과 제목을 포함한 알림을 표시합니다.
+ */
 function showCurrentVideoToast(video) {
     // 기존 토스트 제거 (중복 방지)
     document.querySelectorAll('.toast.fixed').forEach(t => t.remove());
@@ -107,36 +150,10 @@ function showCurrentVideoToast(video) {
     }, 3000);
 }
 
-function showToast(message) {
-    document.querySelectorAll('.toast').forEach(t => t.remove());
-
-    const toast = document.createElement("div");
-    toast.textContent = message;
-    toast.className = "toast";
-    document.body.appendChild(toast);
-    setTimeout(() => {
-        toast.classList.add("fade-out");
-        toast.addEventListener("transitionend", () => {
-            toast.remove();
-        });
-    }, 1500);
-}
-
-function updateCurrentVideoInfo(video) {
-    if (video) {
-        showCurrentVideoToast(video);
-        // 하이라이트 업데이트: 현재 재생중인 비디오에 클래스 추가
-        const container = document.getElementById('playlistInfo');
-        container.querySelectorAll('.video-item-container').forEach(item => {
-            if (item.getAttribute('data-index') === currentVideoIndex.toString()) {
-                item.classList.add('current-video');
-            } else {
-                item.classList.remove('current-video');
-            }
-        });
-    }
-}
-
+/**
+ * HTML 특수문자를 이스케이프하는 함수
+ * XSS 방지를 위해 사용자 제공 콘텐츠(영상 제목, 채널명 등)를 표시할 때 필요합니다.
+ */
 function escapeHtml(unsafe) {
     if (!unsafe || typeof unsafe !== 'string') return '';
     return unsafe
@@ -147,9 +164,8 @@ function escapeHtml(unsafe) {
         .replace(/'/g, "&#039;");
 }
 
-// 간단한 UI 업데이트 함수 예시
-function updateTitle(title) {
-    document.getElementById('playlistTitle').textContent = title.length > 40
-        ? title.slice(0, 40) + '...'
-        : title;
-}
+// updateTitle 함수는 js/V2.0/unused_functions.js로 이동되었습니다.
+
+// 전역으로 함수 노출 (다른 스크립트에서 접근할 수 있도록)
+window.showToast = showToast;
+window.updateCurrentVideoInfo = updateCurrentVideoInfo;

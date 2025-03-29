@@ -2,7 +2,13 @@
 
 // URL 히스토리 관련 코드는 script_history.js로 이동
 
-// 현재 작업 상태를 업데이트하는 함수
+/**
+ * 현재 작업 상태를 UI에 업데이트하는 함수
+ * @param {string} message - 표시할 상태 메시지
+ * @param {number} progress - 진행률(0~100), -1이면 진행바를 표시하지 않음
+ * 
+ * 사용자에게 현재 작업 진행 상황을 알려주는 UI 요소를 업데이트합니다.
+ */
 function updateStatus(message, progress = -1) {
     const statusContainer = document.getElementById('statusContainer');
     const statusMessage = document.getElementById('statusMessage');
@@ -25,7 +31,11 @@ function updateStatus(message, progress = -1) {
     statusContainer.style.display = 'block';
 }
 
-// 상태 표시를 숨기는 함수
+/**
+ * 상태 표시를 화면에서 숨기는 함수
+ * 
+ * 작업이 완료되거나 오류 발생 시 상태 표시를 숨깁니다.
+ */
 function hideStatus() {
     const statusContainer = document.getElementById('statusContainer');
     if (statusContainer) {
@@ -33,6 +43,17 @@ function hideStatus() {
     }
 }
 
+/**
+ * 재생목록 정보를 가져와서 표시하는 메인 함수
+ * 
+ * 1. 사용자가 입력한 YouTube 재생목록 URL에서 ID를 추출
+ * 2. YouTube API를 통해 재생목록 정보 로드
+ * 3. 재생목록 제목과 영상 목록을 화면에 표시
+ * 4. 첫 번째 영상부터 재생 시작
+ * 5. URL을 히스토리에 저장
+ * 
+ * 오류 발생 시 적절한 오류 메시지를 토스트로 표시합니다.
+ */
 async function fetchAndDisplayPlaylist() {
     const playlistUrl = document.getElementById('playlistUrl').value;
     const button = document.querySelector('button');
@@ -140,20 +161,17 @@ async function fetchAndDisplayPlaylist() {
     button.style.backgroundColor = originalButtonBg;
 }
 
-// 메인 페이지로 돌아가기 함수 (필요시 추가)
-function returnToMainPage() {
-    // 재생 관련 요소 숨기기
-    document.getElementById('playlistInfo').style.display = 'none';
-    document.getElementById('controlPanel').style.display = 'none';
-    document.getElementById('videoPlayerContainer').style.display = 'none';
+// returnToMainPage 함수는 js/V2.0/unused_functions.js로 이동되었습니다.
+// 기능: 재생 모드에서 메인 페이지로 돌아가는 기능 (재생 관련 UI 숨기고 히스토리 패널 표시)
 
-    // 히스토리 패널 표시
-    toggleHistoryVisibility(true);
-
-    // 상태 표시 숨기기
-    hideStatus();
-}
-
+/**
+ * URL 입력 검증 및 재생 시작 함수
+ * 
+ * 사용자가 URL을 입력하고 재생 버튼을 눌렀을 때 호출됩니다.
+ * 1. URL이 비어있는지 확인
+ * 2. YouTube URL 형식인지 검증
+ * 3. 재생목록 불러오기 시작
+ */
 function validateAndPlay() {
     const urlField = document.getElementById('playlistUrl');
     const rawUrl = urlField.value.trim();

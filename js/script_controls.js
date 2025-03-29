@@ -1,3 +1,8 @@
+/**
+ * 이전 영상 재생 함수
+ * 현재 영상에서 이전 영상으로 이동하며, 에러가 있는 영상은 자동으로 건너뜁니다.
+ * 모든 영상에 에러가 있을 경우 경고 메시지를 표시합니다.
+ */
 const prevVideo = () => {
     if (!playlistInfo || playlistInfo.length === 0) return;
     for (let i = 0; i < playlistInfo.length; i++) {
@@ -12,6 +17,11 @@ const prevVideo = () => {
     console.warn("정상적인 영상을 찾을 수 없습니다.");
 };
 
+/**
+ * 다음 영상 재생 함수
+ * 현재 영상에서 다음 영상으로 이동하며, 에러가 있는 영상은 자동으로 건너뜁니다.
+ * 모든 영상에 에러가 있을 경우 경고 메시지를 표시합니다.
+ */
 const nextVideo = () => {
     if (!playlistInfo || playlistInfo.length === 0) return;
     for (let i = 0; i < playlistInfo.length; i++) {
@@ -26,6 +36,11 @@ const nextVideo = () => {
     console.warn("정상적인 영상을 찾을 수 없습니다.");
 };
 
+/**
+ * 현재 재생 중인 영상 공유 함수
+ * 현재 영상의 URL을 클립보드에 복사합니다.
+ * 성공/실패 여부에 따라 토스트 메시지를 표시합니다.
+ */
 const shareVideo = () => {
     const video = playlistInfo && playlistInfo[currentVideoIndex];
     if (video && video.url) {
@@ -37,29 +52,8 @@ const shareVideo = () => {
     }
 };
 
-// 새로운 컨트롤 함수 추가
-const pauseVideo = () => {
-    if (player && typeof player.pauseVideo === 'function') {
-        player.pauseVideo();
-    }
-};
-
-const resumeVideo = () => {
-    if (player && typeof player.playVideo === 'function') {
-        player.playVideo();
-    }
-};
-
-const muteVideo = () => {
-    if (player && typeof player.mute === 'function') {
-        player.mute();
-        showToast("음소거 되었습니다.");
-    }
-};
-
-const unmuteVideo = () => {
-    if (player && typeof player.unMute === 'function') {
-        player.unMute();
-        showToast("음소거가 해제되었습니다.");
-    }
-};
+// 다음 함수들은 js/V2.0/unused_functions.js로 이동되었습니다:
+// - pauseVideo(): 영상 일시정지 함수
+// - resumeVideo(): 영상 재생 재개 함수
+// - muteVideo(): 영상 음소거 함수
+// - unmuteVideo(): 영상 음소거 해제 함수
