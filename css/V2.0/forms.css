@@ -6,11 +6,11 @@
 /* ----- 입력 필드 공통 스타일 ----- */
 .input-field {
     width: 100%;
-    padding: 12px 15px;
+    padding: var(--content-padding-xs) var(--content-padding-sm);
     border-radius: var(--border-radius-small);
     background-color: var(--dark-bg);
     color: var(--text-color);
-    font-family: 'Freesentation-9Black', Arial, sans-serif;
+    font-family: var(--primary-font);
     box-sizing: border-box;
     outline: none;
     transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
@@ -18,7 +18,7 @@
 
 .input-field:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 8px rgba(106, 17, 203, 0.5);
+    box-shadow: var(--box-shadow-accent);
 }
 
 .input-field::placeholder {
@@ -28,13 +28,13 @@
 /* 플레이리스트 URL 입력필드 */
 #playlistUrl {
     width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #f8f8f8;
+    padding: var(--content-padding-xs) var(--content-padding-sm);
+    border: 1px solid var(--text-color);
     border-radius: var(--border-radius-small);
     background-color: var(--dark-bg);
     color: var(--text-color);
-    font-size: 16px;
-    font-family: 'Freesentation-9Black', Arial, sans-serif;
+    font-size: var(--small-font-size);
+    font-family: var(--primary-font);
     box-sizing: border-box;
     outline: none;
     transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
@@ -43,7 +43,7 @@
 
 #playlistUrl:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 8px rgba(106, 17, 203, 0.5);
+    box-shadow: var(--box-shadow-accent);
 }
 
 #playlistUrl::placeholder {
@@ -55,24 +55,24 @@
     margin-top: var(--content-padding);
     background-color: var(--panel-bg);
     padding: var(--content-padding-sm);
-    border-radius: 10px;
+    border-radius: var(--border-radius-small);
     text-align: center;
     box-shadow: var(--box-shadow);
 }
 
 #statusMessage {
     color: var(--text-color);
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 16px;
-    margin-bottom: 15px;
+    font-family: var(--secondary-font);
+    font-size: var(--small-font-size);
+    margin-bottom: var(--margin-lg);
 }
 
 /* ----- 진행바 스타일 ----- */
 .progress-container {
     width: 100%;
-    height: 8px;
-    background-color: #444;
-    border-radius: 4px;
+    height: var(--margin-sm);
+    background-color: var(--item-bg);
+    border-radius: var(--border-radius-small);
     overflow: hidden;
 }
 
@@ -80,6 +80,6 @@
     height: 100%;
     width: 0%;
     background: var(--primary-gradient);
-    border-radius: 4px;
+    border-radius: var(--border-radius-small);
     transition: width var(--transition-fast);
 }

@@ -74,26 +74,26 @@
 }
 
 .anim-fade-in {
-    animation: fadeIn 0.3s ease forwards;
+    animation: fadeIn var(--transition-fast) ease forwards;
 }
 
 .anim-fade-out {
-    animation: fadeOut 0.3s ease forwards;
+    animation: fadeOut var(--transition-fast) ease forwards;
 }
 
 .anim-slide-up {
-    animation: slideUp 0.3s ease forwards;
+    animation: slideUp var(--transition-fast) ease forwards;
 }
 
 /* ----- 토스트 메시지 ----- */
 .toast {
     position: fixed;
-    bottom: 30px;
+    bottom: var(--margin-xl);
     left: 50%;
     transform: translateX(-50%);
     background: var(--transparent-bg);
     color: var(--text-color);
-    padding: 10px 20px;
+    padding: var(--margin-sm) var(--margin-xl);
     border-radius: var(--border-radius-small);
     opacity: 1;
     transition: opacity var(--transition-medium);
@@ -106,21 +106,21 @@
 
 /* ----- 로딩 스피너 ----- */
 .spinner {
-    width: 24px;
-    height: 24px;
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    border-top: 4px solid var(--text-color);
+    width: var(--spinner-size-small);
+    height: var(--spinner-size-small);
+    border: var(--spinner-border) solid rgba(255, 255, 255, 0.3);
+    border-top: var(--spinner-border) solid var(--text-color);
     border-radius: var(--border-radius-circle);
     animation: spin 1s linear infinite;
     margin: -2px auto;
 }
 
 .status-spinner {
-    width: 30px;
-    height: 30px;
-    border: 4px solid rgba(255, 255, 255, 0.2);
-    border-top: 4px solid var(--primary-color);
+    width: var(--spinner-size);
+    height: var(--spinner-size);
+    border: var(--spinner-border) solid rgba(255, 255, 255, 0.2);
+    border-top: var(--spinner-border) solid var(--primary-color);
     border-radius: var(--border-radius-circle);
     animation: spin 1s linear infinite;
-    margin: 0 auto 15px;
+    margin: 0 auto var(--content-padding-xs);
 }

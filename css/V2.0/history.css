@@ -14,7 +14,7 @@
     box-sizing: border-box;
     transition: all var(--transition-fast);
     position: fixed;
-    bottom: 10px;
+    bottom: var(--margin-md);
     left: 50%;
     transform: translateX(-50%);
     z-index: 100;
@@ -29,12 +29,12 @@
 
 /* ----- 히스토리 상태 (확장/축소) ----- */
 .history-outer-container.collapsed {
-    max-height: 65px;
+    max-height: var(--history-collapsed-height);
     overflow: hidden;
 }
 
 .history-outer-container.expanded {
-    max-height: 220px;
+    max-height: var(--history-max-height);
 }
 
 .history-outer-container.collapsed .url-history-container {
@@ -52,7 +52,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: var(--margin-lg);
 }
 
 .history-header h2,
@@ -62,12 +62,12 @@
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: 24px;
-    font-family: 'Freesentation-9Black', Arial, sans-serif;
+    font-size: var(--subheader-font-size);
+    font-family: var(--primary-font);
 }
 
 .history-outer-container h2 {
-    margin-bottom: 15px;
+    margin-bottom: var(--margin-lg);
     text-align: center;
 }
 
@@ -77,9 +77,9 @@
     color: var(--text-color);
     border: none;
     border-radius: var(--border-radius-circle);
-    width: 28px;
-    height: 28px;
-    min-width: 28px;
+    width: var(--control-button-size);
+    height: var(--control-button-size);
+    min-width: var(--control-button-size);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -95,10 +95,45 @@
 
 /* ----- URL 히스토리 컨테이너 ----- */
 .url-history-container {
-    max-height: 140px;
+    max-height: var(--history-list-max-height);
     overflow-y: auto;
-    padding-right: 5px;
+    padding-right: var(--margin-sm);
     transition: opacity var(--transition-fast), visibility var(--transition-fast);
+}
+
+/* URL 히스토리 아이템 */
+.url-history-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--margin-sm);
+    padding: var(--content-padding-xs);
+    flex-wrap: wrap;
+}
+
+.url-history-item span {
+    flex: 1;
+    min-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: var(--small-font-size);
+}
+
+/* 모바일 화면에서의 조정 */
+@media (max-width: 480px) {
+    .history-outer-container {
+        padding: var(--content-padding-xs);
+    }
+
+    .url-history-item span {
+        min-width: 120px;
+        font-size: var(--smaller-font-size);
+    }
+
+    .history-header h2 {
+        font-size: var(--body-font-size);
+    }
 }
 
 /* URL 히스토리 스크롤바 스타일은 scrollbars.css로 이동 */

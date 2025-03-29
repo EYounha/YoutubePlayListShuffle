@@ -49,19 +49,50 @@
     --transition-medium: 0.5s ease;
     --transition-slow: 1s ease;
 
-    /* 레이아웃 */
-    --container-width: 600px;
+    /* 레이아웃 크기 */
+    --container-width: min(600px, 95vw);
     --container-height-sm: 180px;
-    --content-padding: 20px;
-    --content-padding-sm: 15px;
-    --content-padding-xs: 10px;
+    --content-padding: clamp(10px, 3vw, 20px);
+    --content-padding-sm: clamp(8px, 2vw, 15px);
+    --content-padding-xs: clamp(5px, 1.5vw, 10px);
+    --header-font-size: clamp(20px, 5vw, 28px);
+    --subheader-font-size: clamp(18px, 4vw, 24px);
+    --body-font-size: clamp(16px, 3vw, 18px);
+    --small-font-size: clamp(14px, 2.5vw, 16px);
+    --smaller-font-size: clamp(12px, 2vw, 14px);
+
+    /* 스크롤바 크기 */
+    --scrollbar-width: 8px;
+
+    /* 컨트롤 요소 크기 */
+    --control-button-size: 28px;
+    --player-height: 400px;
+    --spinner-size-small: 24px;
+    --spinner-size: 30px;
+    --spinner-border: 4px;
+
+    /* 히스토리 패널 크기 */
+    --history-max-height: 220px;
+    --history-collapsed-height: 65px;
+    --history-list-max-height: 140px;
+
+    /* 여백 */
+    --margin-xs: 4px;
+    --margin-sm: 8px;
+    --margin-md: 10px;
+    --margin-lg: 15px;
+    --margin-xl: 20px;
+
+    /* 폰트 패밀리 */
+    --primary-font: 'Freesentation-9Black', Arial, sans-serif;
+    --secondary-font: 'Noto Sans KR', sans-serif;
 }
 
 body {
     background-color: var(--main-bg);
     color: var(--text-color);
-    font-family: 'Freesentation-9Black', Arial, sans-serif;
-    font-size: 18px;
+    font-family: var(--primary-font);
+    font-size: var(--body-font-size);
     display: flex;
     justify-content: center;
     align-items: center;

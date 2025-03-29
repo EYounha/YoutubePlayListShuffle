@@ -6,13 +6,13 @@
 /* 플레이리스트와 URL 히스토리 컨테이너용 스크롤바 스타일 */
 .playlist-container::-webkit-scrollbar,
 .url-history-container::-webkit-scrollbar {
-    width: 8px;
+    width: var(--scrollbar-width);
 }
 
 .playlist-container::-webkit-scrollbar-thumb,
 .url-history-container::-webkit-scrollbar-thumb {
     background: var(--primary-gradient);
-    border-radius: 10px;
+    border-radius: var(--border-radius-small);
     border: 2px solid var(--dark-bg);
 }
 
@@ -23,12 +23,12 @@
 
 /* 공통 스크롤바 스타일 클래스 */
 .custom-scrollbar::-webkit-scrollbar {
-    width: 8px;
+    width: var(--scrollbar-width);
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
     background: var(--primary-gradient);
-    border-radius: 10px;
+    border-radius: var(--border-radius-small);
     border: 2px solid var(--dark-bg);
 }
 

@@ -6,8 +6,8 @@
 /* ----- 플레이리스트 정보 레이아웃 ----- */
 .playlist-info {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: var(--margin-sm);
     margin-top: var(--content-padding);
     text-align: left;
     color: var(--text-color);
@@ -60,8 +60,6 @@
 .video-item-container-error .video-item:hover,
 .video-item-container-event-error .video-item:hover {
     transform: none;
-    background: var(--error-bg);
-    /* 원래 배경색 유지 */
     box-shadow: none;
 }
 
@@ -80,11 +78,13 @@
     align-items: center;
     padding: var(--content-padding-xs);
     border-radius: var(--border-radius-small);
-    background: #242424;
+    background: var(--dark-bg);
     transition: background-color var(--transition-fast), transform var(--transition-fast);
     will-change: transform;
     transform: translateZ(0);
     contain: content;
+    flex-wrap: wrap;
+    gap: var(--margin-sm);
 }
 
 .video-item:hover {
@@ -94,16 +94,18 @@
 }
 
 .video-item img {
-    width: 100px;
-    height: 75px;
-    border-radius: 4px;
+    width: clamp(80px, 30%, 100px);
+    height: auto;
+    aspect-ratio: 4/3;
+    border-radius: var(--border-radius-small);
     object-fit: cover;
-    margin-right: 10px;
+    margin-right: var(--margin-sm);
 }
 
 /* ----- 비디오 상세 정보 ----- */
 .video-details {
     flex: 1;
+    min-width: min(200px, 100%);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -111,11 +113,11 @@
 }
 
 .video-details .video-title {
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 16px;
+    font-family: var(--secondary-font);
+    font-size: var(--small-font-size);
     font-weight: bold;
     color: var(--text-highlight);
-    margin: 0 0 4px 0;
+    margin: 0 0 var(--margin-xs) 0;
     line-height: 1.2;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -124,8 +126,8 @@
 }
 
 .video-details .video-channel {
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 14px;
+    font-family: var(--secondary-font);
+    font-size: var(--smaller-font-size);
     color: var(--text-muted);
     margin: 0;
     white-space: normal;

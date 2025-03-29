@@ -8,9 +8,9 @@
     background-color: var(--panel-bg);
     padding: var(--content-padding);
     border-radius: var(--border-radius);
-    margin: 10px auto;
+    margin: var(--margin-md) auto;
     box-shadow: var(--box-shadow);
-    max-height: 400px;
+    max-height: var(--player-height);
     width: var(--container-width);
     transition: transform var(--transition-fast);
     /* 스크롤 최적화 속성 - scrollbars.css와 함께 적용 */
@@ -37,7 +37,7 @@
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow-hover);
     padding: var(--content-padding);
-    margin: 20px 0 0 auto;
+    margin: var(--margin-xl) 0 0 auto;
     transition: transform var(--transition-fast);
 }
 
@@ -47,7 +47,7 @@
 
 .video-player {
     width: 100%;
-    height: 400px;
+    height: clamp(200px, 50vw, var(--player-height));
     background-color: transparent;
     border-radius: var(--border-radius-small);
 }

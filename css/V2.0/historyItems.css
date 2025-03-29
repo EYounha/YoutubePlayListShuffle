@@ -8,7 +8,7 @@
     background-color: var(--item-bg);
     padding: var(--content-padding-xs) var(--content-padding-sm);
     border-radius: var(--border-radius-small);
-    margin-bottom: 8px;
+    margin-bottom: var(--margin-sm);
     transition: all var(--transition-fast);
     display: flex;
     justify-content: space-between;
@@ -17,7 +17,7 @@
 
 .url-history-item span {
     color: var(--text-color);
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: var(--secondary-font);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -29,9 +29,9 @@
     color: var(--text-color);
     border: none;
     border-radius: var(--border-radius-circle);
-    width: 28px;
-    height: 28px;
-    min-width: 28px;
+    width: var(--control-button-size);
+    height: var(--control-button-size);
+    min-width: var(--control-button-size);
     display: flex;
     align-items: center;
     justify-content: center;
