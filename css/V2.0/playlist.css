@@ -18,7 +18,6 @@
     transform: translateZ(0);
     backface-visibility: hidden;
     perspective: 1000px;
-    -webkit-overflow-scrolling: touch;
 }
 
 .playlist-container:hover {
@@ -38,7 +37,7 @@
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow-hover);
     padding: var(--content-padding);
-    margin: 10px auto 0;
+    margin: 20px 0 0 auto;
     transition: transform var(--transition-fast);
 }
 

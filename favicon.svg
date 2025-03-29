@@ -1,11 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+<svg width="64" height="64"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:svg="http://www.w3.org/2000/svg">
     <defs>
-        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#6a11cb" />
-            <stop offset="100%" stop-color="#2575fc" />
+        <linearGradient id="gradient" x1="0%" x2="100%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#6a11cb"/>
+            <stop offset="100%" stop-color="#2575fc"/>
         </linearGradient>
     </defs>
-    <circle cx="32" cy="32" r="30" fill="url(#gradient)" />
-    <path d="M26 20v24l18-12z" fill="white" />
-    <path d="M48 44l-4-4M48 44l-4 4M16 44l4-4M16 44l4 4" stroke="white" stroke-width="3" stroke-linecap="round" />
+    <g class="layer">
+        <title>Layer 1</title>
+        <circle cx="32" cy="32" fill="url(#gradient)" id="svg_1" r="30"/>
+        <g id="svg_3" transform="translate(19.25 0) matrix(1.5 0 0 1.5 -6 14)">
+            <polyline fill="none" id="svg_4" points="16 3 21 3 21 8" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+            <line id="svg_5" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="4" x2="21" y1="20" y2="3"/>
+            <polyline fill="none" id="svg_6" points="21 16 21 21 16 21" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+            <line id="svg_7" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="4" x2="21" y1="4" y2="21"/>
+        </g>
+    </g>
 </svg>
