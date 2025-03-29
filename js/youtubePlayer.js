@@ -3,6 +3,11 @@ let player;
 let isPlayerReady = false;
 let scrollThrottleTimer = null;
 
+// 자동 스크롤 관련 변수 추가
+let userScrolledRecently = false;
+let userScrollTimeout = null;
+const USER_SCROLL_TIMEOUT_MS = 8000; // 사용자가 스크롤한 후 5초 동안 자동 스크롤 비활성화
+
 // YouTube API가 준비되면 호출되는 함수
 function onYouTubeIframeAPIReady() {
     console.log('YouTube IFrame API 준비 완료');
@@ -31,6 +36,8 @@ function onYouTubeIframeAPIReady() {
 // 플레이어가 준비되면 호출되는 함수
 function onPlayerReady(event) {
     console.log('플레이어 준비 완료');
+    // 플레이어가 준비되면 스크롤 이벤트 리스너 설정
+    setupScrollListener();
 }
 
 // 플레이어 상태가 변경되면 호출되는 함수
@@ -130,6 +137,9 @@ function playVideo(videoUrl) {
         console.log('기존 플레이어로 비디오를 로드합니다:', videoId);
         player.loadVideoById(videoId);
     }
+
+    // 비디오가 변경되면 리스트의 해당 항목으로 자동 스크롤
+    setTimeout(() => scrollToCurrentVideo(), 300);
 }
 
 // 스크롤 성능 최적화 함수
@@ -151,6 +161,70 @@ function optimizePlaylistScroll() {
         item.style.willChange = 'transform';
         item.style.transform = 'translateZ(0)';
     });
+}
+
+// 스크롤 이벤트 리스너 설정 함수
+function setupScrollListener() {
+    const playlistContainer = document.querySelector('.playlist-container');
+    if (!playlistContainer) return;
+
+    // 사용자가 스크롤하면 일정 시간동안 자동 스크롤 비활성화
+    playlistContainer.addEventListener('scroll', () => {
+        userScrolledRecently = true;
+
+        // 기존 타이머가 있으면 제거
+        if (userScrollTimeout) {
+            clearTimeout(userScrollTimeout);
+        }
+
+        // 일정 시간 후 자동 스크롤 다시 활성화
+        userScrollTimeout = setTimeout(() => {
+            userScrolledRecently = false;
+        }, USER_SCROLL_TIMEOUT_MS);
+    }, { passive: true });
+}
+
+// 현재 재생 중인 비디오로 스크롤하는 함수
+function scrollToCurrentVideo() {
+    // 사용자가 최근에 스크롤했다면 자동 스크롤하지 않음
+    if (userScrolledRecently) return;
+
+    const currentVideoElement = document.querySelector('.current-video');
+    const playlistContainer = document.querySelector('.playlist-container');
+
+    if (currentVideoElement && playlistContainer) {
+        // 스크롤 위치 계산 (현재 비디오가 컨테이너 중앙에 오도록)
+        const containerHeight = playlistContainer.offsetHeight;
+        const videoElementPos = currentVideoElement.offsetTop;
+        const videoElementHeight = currentVideoElement.offsetHeight;
+
+        const scrollPosition = videoElementPos - (containerHeight / 2) + (videoElementHeight / 2);
+
+        // 부드럽게 스크롤
+        playlistContainer.scrollTo({
+            top: scrollPosition,
+            behavior: 'smooth'
+        });
+    }
+}
+
+// 비디오가 변경될 때마다 scrollToCurrentVideo 호출하도록 업데이트
+function updateCurrentVideoInfo(video) {
+    if (video) {
+        showCurrentVideoToast(video);
+        // 하이라이트 업데이트: 현재 재생중인 비디오에 클래스 추가
+        const container = document.getElementById('playlistInfo');
+        container.querySelectorAll('.video-item-container').forEach(item => {
+            if (item.getAttribute('data-index') === currentVideoIndex.toString()) {
+                item.classList.add('current-video');
+            } else {
+                item.classList.remove('current-video');
+            }
+        });
+
+        // 비디오가 변경되면 해당 항목으로 스크롤
+        setTimeout(() => scrollToCurrentVideo(), 300);
+    }
 }
 
 // 스크롤 쓰로틀링 함수
@@ -201,6 +275,8 @@ if (originalDisplayPlaylistInfo) {
         originalDisplayPlaylistInfo(playlistInfo, title);
         // 스크롤 최적화 적용
         setTimeout(optimizePlaylistScroll, 0);
+        // 스크롤 이벤트 리스너 설정
+        setupScrollListener();
     };
 }
 
@@ -218,3 +294,18 @@ function initYouTubePlayer(videoId) {
         }
     });
 }
+
+// 전역 스코프에 updateCurrentVideoInfo 함수 노출 (다른 파일에서 선언된 경우)
+if (typeof window.updateCurrentVideoInfo === 'function') {
+    const originalUpdateCurrentVideoInfo = window.updateCurrentVideoInfo;
+    window.updateCurrentVideoInfo = function (video) {
+        originalUpdateCurrentVideoInfo(video);
+        // 비디오 정보 업데이트 후 스크롤
+        setTimeout(() => scrollToCurrentVideo(), 300);
+    };
+}
+
+// 페이지 로드 시 스크롤 이벤트 리스너 초기화
+window.addEventListener('DOMContentLoaded', () => {
+    setupScrollListener();
+});

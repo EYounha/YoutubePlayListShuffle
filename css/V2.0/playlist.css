@@ -1,0 +1,54 @@
+/* 
+ * playlist.css - V2.0
+ * 플레이리스트 컨테이너 및 비디오 플레이어 스타일
+ */
+
+/* ----- 플레이리스트 컨테이너 ----- */
+.playlist-container {
+    background-color: var(--panel-bg);
+    padding: var(--content-padding);
+    border-radius: var(--border-radius);
+    margin: 10px auto;
+    box-shadow: var(--box-shadow);
+    max-height: 400px;
+    width: var(--container-width);
+    transition: transform var(--transition-fast);
+    /* 스크롤 최적화 속성 - scrollbars.css와 함께 적용 */
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.playlist-container:hover {
+    transform: scale(var(--scale-hover));
+}
+
+/* 스크롤바 스타일은 scrollbars.css로 이동 */
+
+/* ----- 비디오 플레이어 컨테이너 ----- */
+.video-player-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: var(--container-width);
+    background-color: var(--dark-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-hover);
+    padding: var(--content-padding);
+    margin: 10px auto 0;
+    transition: transform var(--transition-fast);
+}
+
+.video-player-container:hover {
+    transform: scale(var(--scale-hover));
+}
+
+.video-player {
+    width: 100%;
+    height: 400px;
+    background-color: transparent;
+    border-radius: var(--border-radius-small);
+}

@@ -1,0 +1,104 @@
+/* 
+ * history.css - V2.0
+ * 히스토리 패널 및 관련 컴포넌트 스타일
+ */
+
+/* ----- 히스토리 컨테이너 ----- */
+.history-outer-container {
+    background-color: var(--panel-bg);
+    padding: var(--content-padding-sm);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    width: var(--container-width);
+    max-width: var(--container-width);
+    box-sizing: border-box;
+    transition: all var(--transition-fast);
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.history-outer-container:hover {
+    transform: translateX(-50%) scale(var(--scale-hover));
+}
+
+/* ----- 히스토리 상태 (확장/축소) ----- */
+.history-outer-container.collapsed {
+    max-height: 65px;
+    overflow: hidden;
+}
+
+.history-outer-container.expanded {
+    max-height: 220px;
+}
+
+.history-outer-container.collapsed .url-history-container {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.history-outer-container.expanded .url-history-container {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ----- 히스토리 헤더 ----- */
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.history-header h2,
+.history-outer-container h2 {
+    margin: 0;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 24px;
+    font-family: 'Freesentation-9Black', Arial, sans-serif;
+}
+
+.history-outer-container h2 {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* ----- 히스토리 토글 버튼 ----- */
+.toggle-history-btn {
+    background: var(--primary-gradient);
+    color: var(--text-color);
+    border: none;
+    border-radius: var(--border-radius-circle);
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: all var(--transition-fast);
+}
+
+.toggle-history-btn:hover {
+    background: var(--reverse-gradient);
+    transform: scale(var(--scale-hover-lg));
+}
+
+/* ----- URL 히스토리 컨테이너 ----- */
+.url-history-container {
+    max-height: 140px;
+    overflow-y: auto;
+    padding-right: 5px;
+    transition: opacity var(--transition-fast), visibility var(--transition-fast);
+}
+
+/* URL 히스토리 스크롤바 스타일은 scrollbars.css로 이동 */

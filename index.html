@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 
 <head>
-    <!-- 메타데이터 설정 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 파비콘 설정 -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -12,9 +10,9 @@
     <script>
         window.console = {log: function() {},warn: function() {},error: function() {},info: function() {},debug: function() {}};
     </script>
-    <!-- YouTube IFrame API 추가 -->
     <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
-    <!-- API 키 관련 스크립트 -->
+
+    <!-- JS -->
     <script type="text/javascript" src="js/debug_api_key.js"></script>
     <script type="text/javascript" src="js/api_config.js"></script>
     <script type="text/javascript" src="js/key.js"></script>
@@ -24,14 +22,20 @@
     <script type="text/javascript" src="js/script_controls.js"></script>
     <script type="text/javascript" src="js/script_ui.js"></script>  
     <script type="text/javascript" src="js/script_util.js"></script>
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/panel_container.css">
-    <link rel="stylesheet" href="css/main_container.css">
-    <link rel="stylesheet" href="css/list_container.css">
-    <link rel="stylesheet" href="css/font.css">
-    <link rel="stylesheet" href="css/button.css">
-    <link rel="stylesheet" href="css/youtube-playlist-history.css">
-    <link rel="stylesheet" href="css/custom.css">
+
+    <!-- CSS V2.0 -->
+    <link rel="stylesheet" href="css/V2.0/font.css">
+    <link rel="stylesheet" href="css/V2.0/variables.css">
+    <link rel="stylesheet" href="css/V2.0/animations.css">
+    <link rel="stylesheet" href="css/V2.0/buttons.css">
+    <link rel="stylesheet" href="css/V2.0/history.css">
+    <link rel="stylesheet" href="css/V2.0/controls.css">
+    <link rel="stylesheet" href="css/V2.0/forms.css">
+    <link rel="stylesheet" href="css/V2.0/historyItems.css">
+    <link rel="stylesheet" href="css/V2.0/layout.css">
+    <link rel="stylesheet" href="css/V2.0/playlist.css">
+    <link rel="stylesheet" href="css/V2.0/videoitems.css">
+    <link rel="stylesheet" href="css/V2.0/scrollbars.css">
     <title>YouTube Playlist Shuffle</title>
 </head>
 
@@ -57,7 +61,7 @@
                     </div>
                 </div>
             </div>
-            <div id="playlistInfo" class="playlist-info playlist-container"
+            <div id="playlistInfo" class="playlist-info playlist-container custom-scrollbar"
                 style="display:none;"></div>
             <!-- 플레이리스트 정보 표시 영역 -->
         </div>
@@ -145,7 +149,7 @@
                 </svg>
             </button>
         </div>
-        <div id="urlHistoryContainer" class="url-history-container">
+        <div id="urlHistoryContainer" class="url-history-container custom-scrollbar">
             <!-- 최근 URL 리스트 표시용 -->
         </div>
     </div>

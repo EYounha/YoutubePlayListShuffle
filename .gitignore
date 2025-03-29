@@ -10,3 +10,7 @@
 .DS_Store
 node_modules/
 *.log
+
+# V1.0 디렉토리 내용 제외
+**/css/V1.0/*
+**/js/V1.0/*

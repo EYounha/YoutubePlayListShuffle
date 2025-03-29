@@ -1,0 +1,63 @@
+/* 
+ * layout.css - V2.0
+ * 레이아웃 관련 스타일
+ */
+
+/* 메인 컨테이너 */
+.main-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    transition: transform 1s ease;
+    width: 100%;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+/* 입력 컨테이너 */
+#container {
+    background-color: var(--dark-bg);
+    height: 180px;
+    border-radius: var(--border-radius);
+    margin: 0 auto 20px auto;
+    transition: transform 0.3s ease;
+}
+
+#container:hover {
+    transform: scale(var(--scale-hover));
+}
+
+#inputContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    flex-direction: column;
+}
+
+/* 제목 스타일 */
+h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    background: var(--primary-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.container {
+    text-align: center;
+    width: 600px;
+    max-width: 600px;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-hover);
+    transition: transform 0.3s ease;
+    margin: 0 auto;
+}
+
+.container:hover {
+    transform: scale(var(--scale-hover));
+}

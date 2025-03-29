@@ -1,0 +1,37 @@
+/* 
+ * scrollbars.css - V2.0
+ * 모든 스크롤바 스타일 통합 (V1.0과 동일한 스타일로 수정)
+ */
+
+/* 플레이리스트와 URL 히스토리 컨테이너용 스크롤바 스타일 */
+.playlist-container::-webkit-scrollbar,
+.url-history-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.playlist-container::-webkit-scrollbar-thumb,
+.url-history-container::-webkit-scrollbar-thumb {
+    background: var(--primary-gradient);
+    border-radius: 10px;
+    border: 2px solid var(--dark-bg);
+}
+
+.playlist-container::-webkit-scrollbar-track,
+.url-history-container::-webkit-scrollbar-track {
+    background-color: var(--dark-bg);
+}
+
+/* 공통 스크롤바 스타일 클래스 */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--primary-gradient);
+    border-radius: 10px;
+    border: 2px solid var(--dark-bg);
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background-color: var(--dark-bg);
+}

@@ -1,0 +1,64 @@
+/* 
+ * historyItems.css - V2.0
+ * 히스토리 아이템 스타일
+ */
+
+/* URL 히스토리 아이템 스타일 */
+.url-history-item {
+    background-color: var(--item-bg);
+    padding: var(--content-padding-xs) var(--content-padding-sm);
+    border-radius: var(--border-radius-small);
+    margin-bottom: 8px;
+    transition: all var(--transition-fast);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.url-history-item span {
+    color: var(--text-color);
+    font-family: 'Noto Sans KR', sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80%;
+}
+
+.url-history-item button {
+    background: var(--primary-gradient);
+    color: var(--text-color);
+    border: none;
+    border-radius: var(--border-radius-circle);
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--box-shadow-sm);
+    transition: all var(--transition-fast);
+    padding: 0;
+}
+
+.url-history-item button:hover {
+    background: var(--reverse-gradient);
+    transform: scale(var(--scale-hover-lg));
+}
+
+.url-history-item:hover {
+    background-color: var(--item-hover-bg);
+    transform: translateY(-2px);
+    box-shadow: var(--box-shadow);
+}
+
+/* 비활성화된 히스토리 아이템 스타일 */
+.url-history-item.disabled {
+    cursor: not-allowed;
+}
+
+.url-history-item.disabled:hover {
+    transform: none;
+    box-shadow: none;
+    background-color: var(--item-bg);
+}

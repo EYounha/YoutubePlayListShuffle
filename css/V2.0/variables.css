@@ -1,0 +1,75 @@
+/* 
+ * variables.css - V2.0
+ * CSS 변수와 기본 스타일 정의
+ */
+
+:root {
+    /* 스케일 효과 */
+    --scale-hover: 1.03;
+    --scale-hover-lg: 1.1;
+
+    /* 그라데이션 색상 */
+    --primary-gradient: linear-gradient(135deg, #6a11cb, #2575fc);
+    --reverse-gradient: linear-gradient(135deg, #2575fc, #6a11cb);
+    --primary-color: #6a11cb;
+    --secondary-color: #2575fc;
+
+    /* 배경색 */
+    --main-bg: #121212;
+    --dark-bg: #1f1f1f;
+    --panel-bg: #2a2a2a;
+    --item-bg: #353535;
+    --item-hover-bg: #444;
+    --item-active-bg: #4e4e4e;
+    --highlight-bg: #3a3a3a;
+    --error-bg: #5a1a1a;
+    --warning-bg: #6e4a14;
+    --transparent-bg: rgba(0, 0, 0, 0.8);
+
+    /* 텍스트 색상 */
+    --text-color: #ffffff;
+    --text-muted: #aaaaaa;
+    --text-highlight: #a850f0;
+
+    /* 테두리 및 그림자 */
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    --box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.3);
+    --box-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+    --box-shadow-accent: 0 6px 12px rgba(106, 17, 203, 0.5);
+    --border-radius: 15px;
+    --border-radius-small: 8px;
+    --border-radius-circle: 50%;
+
+    /* 에러 색상 */
+    --error-color: #ff4d4d;
+    --warning-color: #ff9800;
+
+    /* 트랜지션 속도 */
+    --transition-fast: 0.3s ease;
+    --transition-medium: 0.5s ease;
+    --transition-slow: 1s ease;
+
+    /* 레이아웃 */
+    --container-width: 600px;
+    --container-height-sm: 180px;
+    --content-padding: 20px;
+    --content-padding-sm: 15px;
+    --content-padding-xs: 10px;
+}
+
+body {
+    background-color: var(--main-bg);
+    color: var(--text-color);
+    font-family: 'Freesentation-9Black', Arial, sans-serif;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    flex-direction: column;
+    padding: var(--content-padding-xs);
+    box-sizing: border-box;
+    overflow-x: auto;
+    text-align: center;
+}
