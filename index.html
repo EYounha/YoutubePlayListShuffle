@@ -12,16 +12,28 @@
     </script-->
     <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
 
-    <!-- JS -->
+    <!-- 기본 API 및 인증 관련 JS -->
     <script type="text/javascript" src="js/debug_api_key.js"></script>
     <script type="text/javascript" src="js/api_config.js"></script>
     <script type="text/javascript" src="js/key.js"></script>
-    <script type="text/javascript" src="js/script_history.js"></script>
-    <script type="text/javascript" src="js/script_main.js"></script>
-    <script type="text/javascript" src="js/script_controls.js"></script>
-    <script type="text/javascript" src="js/script_ui.js"></script>  
-    <script type="text/javascript" src="js/script_util.js"></script>
-    <script type="text/javascript" src="js/youtubePlayer.js"></script>
+    
+    <!-- V2.0 모듈형 JS 파일 -->
+    <script type="text/javascript" src="js/V2.0/ui_toast.js"></script>
+    <script type="text/javascript" src="js/V2.0/ui_playlist.js"></script>
+    <script type="text/javascript" src="js/V2.0/util_api.js"></script>
+    <script type="text/javascript" src="js/V2.0/util_playlist_info.js"></script>
+    <script type="text/javascript" src="js/V2.0/util_playlist_functions.js"></script>
+    <script type="text/javascript" src="js/V2.0/history_functions.js"></script>
+    <script type="text/javascript" src="js/V2.0/history_ui.js"></script>
+    <script type="text/javascript" src="js/V2.0/player_core.js"></script>
+    <script type="text/javascript" src="js/V2.0/player_functions.js"></script>
+    <script type="text/javascript" src="js/V2.0/player_optimization.js"></script>
+    <script type="text/javascript" src="js/V2.0/player_scroll.js"></script>
+    <script type="text/javascript" src="js/V2.0/player_controls.js"></script>
+    <script type="text/javascript" src="js/V2.0/status_functions.js"></script>
+    <script type="text/javascript" src="js/V2.0/playlist_error_handlers.js"></script>
+    <script type="text/javascript" src="js/V2.0/playlist_loader.js"></script>
+    <script type="text/javascript" src="js/V2.0/main_core.js"></script>
 
     <!-- CSS V2.0 -->
     <link rel="stylesheet" href="css/V2.0/font.css">
@@ -48,7 +60,7 @@
                 <div id="inputContainer">
                     <input type="text" id="playlistUrl" name="playlistUrl"
                         placeholder="YouTube Playlist URL"> <!-- 입력 필드 -->
-                    <button onclick="fetchAndDisplayPlaylist()">
+                    <button onclick="validateAndPlay()">
                         <span>PLAY</span>
                     </button> <!-- 버튼 -->
                 </div>
@@ -155,29 +167,17 @@
     </div>
 
     <script>
-        function toggleHistoryPanel() {
-            const historyContainer = document.getElementById('historyContainerWrapper');
-            const toggleBtn = document.getElementById('toggleHistoryBtn');
-            
-            if (historyContainer.classList.contains('collapsed')) {
-                historyContainer.classList.remove('collapsed');
-                historyContainer.classList.add('expanded');
-                // 아이콘 회전 (화살표 방향 변경)
-                toggleBtn.querySelector('svg polyline').setAttribute('points', '18 9 12 15 6 9');
-            } else {
-                historyContainer.classList.remove('expanded');
-                historyContainer.classList.add('collapsed');
-                // 아이콘 회전 (화살표 방향 변경)
-                toggleBtn.querySelector('svg polyline').setAttribute('points', '18 15 12 9 6 15');
-            }
-        }
-
         // 페이지 로드 시 히스토리 패널 초기화
         document.addEventListener('DOMContentLoaded', function() {
             // 초기 상태는 축소된 상태로 시작
             const historyContainer = document.getElementById('historyContainerWrapper');
             if (historyContainer) {
                 historyContainer.classList.add('collapsed');
+            }
+            
+            // URL 히스토리 로드
+            if (typeof loadUrlHistory === 'function') {
+                loadUrlHistory();
             }
         });
     </script>

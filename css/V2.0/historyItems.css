@@ -22,6 +22,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 80%;
+    text-align: left;
+    /* 왼쪽 정렬 명시적 지정 */
+    padding-left: 5px;
+    /* 왼쪽 여백 추가 */
 }
 
 .url-history-item button {
