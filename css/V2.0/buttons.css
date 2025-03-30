@@ -6,13 +6,13 @@
 /* ----- 기본 버튼 스타일 ----- */
 .btn {
     background: var(--primary-gradient);
-    color: var(--text-color);
+    color: #ffffff;
     border: none;
     cursor: pointer;
-    transition: all var(--transition-fast);
+    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    font-family: var(--primary-font);
+    font-family: 'Freesentation-9Black', Arial, sans-serif;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -20,13 +20,13 @@
 
 .btn:hover {
     background: var(--reverse-gradient);
-    transform: scale(var(--scale-hover));
-    box-shadow: var(--box-shadow-hover);
+    transform: scale(1.03);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .btn:active {
     transform: translateY(2px);
-    box-shadow: var(--box-shadow-sm);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* 물결 효과 (물결 애니메이션) */
@@ -39,7 +39,7 @@
     height: 100%;
     background: rgba(255, 255, 255, 0.2);
     transform: skewX(-45deg);
-    transition: all var(--transition-fast);
+    transition: all 0.3s ease;
     will-change: transform;
     z-index: 0;
 }
@@ -55,30 +55,30 @@
 
 /* ----- 버튼 크기 변형 ----- */
 .btn-lg {
-    padding: var(--content-padding-sm) var(--content-padding);
-    font-size: var(--body-font-size);
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
+    padding: clamp(8px, 2vw, 15px) clamp(10px, 3vw, 20px);
+    font-size: clamp(16px, 3vw, 18px);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-md {
-    padding: var(--margin-sm) var(--content-padding-sm);
-    font-size: var(--small-font-size);
-    border-radius: var(--content-padding-sm);
-    box-shadow: var(--box-shadow-sm);
+    padding: 8px clamp(8px, 2vw, 15px);
+    font-size: clamp(14px, 2.5vw, 16px);
+    border-radius: clamp(8px, 2vw, 15px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .btn-sm {
-    padding: var(--margin-xs) var(--content-padding-xs);
-    font-size: var(--smaller-font-size);
-    border-radius: var(--margin-xl);
-    box-shadow: var(--box-shadow-sm);
+    padding: 4px clamp(5px, 1.5vw, 10px);
+    font-size: clamp(12px, 2vw, 14px);
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .btn-icon {
-    border-radius: var(--border-radius-circle);
-    width: var(--control-button-size);
-    height: var(--control-button-size);
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -87,8 +87,8 @@
 
 /* ----- 상태 변형 ----- */
 .btn-error {
-    background-color: var(--error-color) !important;
-    transform: scale(var(--scale-hover-lg));
+    background-color: #ff4d4d !important;
+    transform: scale(1.1);
     animation: shake 0.3s;
 }
 

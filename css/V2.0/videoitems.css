@@ -7,24 +7,24 @@
 .playlist-info {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-    gap: var(--margin-sm);
-    margin-top: var(--content-padding);
+    gap: 8px;
+    margin-top: clamp(10px, 3vw, 20px);
     text-align: left;
-    color: var(--text-color);
+    color: #ffffff;
     overflow-x: hidden;
 }
 
 /* ----- 비디오 아이템 컨테이너 ----- */
 .video-item-container {
-    transition: transform var(--transition-fast);
+    transition: transform 0.3s ease;
     width: 100%;
 }
 
 /* 일반 비디오 아이템 컨테이너 호버 효과 */
 .video-item-container:hover {
-    transform: scale(var(--scale-hover));
-    background-color: var(--item-active-bg);
-    border-radius: var(--border-radius);
+    transform: scale(1.03);
+    background-color: #4e4e4e;
+    border-radius: 8px;
 }
 
 /* 에러 비디오는 호버 효과 비활성화 */
@@ -37,22 +37,22 @@
 /* ----- 현재 재생 중인 비디오 하이라이트 ----- */
 .current-video .video-item {
     transform: translateY(-3px);
-    background: var(--highlight-bg);
-    box-shadow: var(--box-shadow-accent);
+    background: #3a3a3a;
+    box-shadow: 0 6px 12px rgba(106, 17, 203, 0.5);
 }
 
 /* ----- 에러 상태 비디오 ----- */
 .video-item-container-error .video-item {
-    background: var(--error-bg);
-    border: 1px solid var(--error-color);
-    color: var(--text-color);
+    background: #5a1a1a;
+    border: 1px solid #ff4d4d;
+    color: #ffffff;
     opacity: 0.8;
 }
 
 .video-item-container-event-error .video-item {
-    background: var(--warning-bg);
-    border: 1px solid var(--warning-color);
-    color: var(--text-color);
+    background: #6e4a14;
+    border: 1px solid #ff9800;
+    color: #ffffff;
     opacity: 0.8;
 }
 
@@ -65,41 +65,41 @@
 
 /* 에러 비디오의 경우 원래 배경색 유지 */
 .video-item-container-error .video-item:hover {
-    background: var(--error-bg);
+    background: #5a1a1a;
 }
 
 .video-item-container-event-error .video-item:hover {
-    background: var(--warning-bg);
+    background: #6e4a14;
 }
 
 /* ----- 비디오 아이템 스타일 ----- */
 .video-item {
     display: flex;
     align-items: center;
-    padding: var(--content-padding-xs);
-    border-radius: var(--border-radius-small);
-    background: var(--dark-bg);
-    transition: background-color var(--transition-fast), transform var(--transition-fast);
+    padding: clamp(5px, 1.5vw, 10px);
+    border-radius: 8px;
+    background: #1f1f1f;
+    transition: background-color 0.3s ease, transform 0.3s ease;
     will-change: transform;
     transform: translateZ(0);
     contain: content;
     flex-wrap: wrap;
-    gap: var(--margin-sm);
+    gap: 8px;
 }
 
 .video-item:hover {
     transform: translateY(-3px);
-    background: var(--item-hover-bg);
-    box-shadow: var(--box-shadow);
+    background: #444;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .video-item img {
     width: clamp(80px, 30%, 100px);
     height: auto;
     aspect-ratio: 4/3;
-    border-radius: var(--border-radius-small);
+    border-radius: 8px;
     object-fit: cover;
-    margin-right: var(--margin-sm);
+    margin-right: 8px;
 }
 
 /* ----- 비디오 상세 정보 ----- */
@@ -113,11 +113,11 @@
 }
 
 .video-details .video-title {
-    font-family: var(--secondary-font);
-    font-size: var(--small-font-size);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: clamp(14px, 2.5vw, 16px);
     font-weight: bold;
-    color: var(--text-highlight);
-    margin: 0 0 var(--margin-xs) 0;
+    color: #a850f0;
+    margin: 0 0 4px 0;
     line-height: 1.2;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -126,9 +126,9 @@
 }
 
 .video-details .video-channel {
-    font-family: var(--secondary-font);
-    font-size: var(--smaller-font-size);
-    color: var(--text-muted);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: clamp(12px, 2vw, 14px);
+    color: #aaaaaa;
     margin: 0;
     white-space: normal;
     display: inline-block;

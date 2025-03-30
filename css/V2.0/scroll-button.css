@@ -15,7 +15,7 @@
     padding: 10px 20px;
     border-radius: 30px;
     background: var(--primary-gradient);
-    color: var(--text-color);
+    color: #ffffff;
     font-weight: bold;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     z-index: 100;
@@ -34,7 +34,7 @@
 .scroll-to-current-btn:hover {
     background: var(--reverse-gradient);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-    transform: translate(-50%, 0) scale(var(--scale-hover));
+    transform: translate(-50%, 0) scale(1.03);
 }
 
 .scroll-to-current-btn:active {
@@ -42,7 +42,7 @@
 }
 
 .scroll-to-current-btn.visible:hover {
-    transform: translate(-50%, 0) scale(var(--scale-hover));
+    transform: translate(-50%, 0) scale(1.03);
 }
 
 .scroll-to-current-btn.visible:active {

@@ -5,19 +5,19 @@
 
 /* URL 히스토리 아이템 스타일 */
 .url-history-item {
-    background-color: var(--item-bg);
-    padding: var(--content-padding-xs) var(--content-padding-sm);
-    border-radius: var(--border-radius-small);
-    margin-bottom: var(--margin-sm);
-    transition: all var(--transition-fast);
+    background-color: #353535;
+    padding: clamp(5px, 1.5vw, 10px) clamp(8px, 2vw, 15px);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .url-history-item span {
-    color: var(--text-color);
-    font-family: var(--secondary-font);
+    color: #ffffff;
+    font-family: 'Noto Sans KR', sans-serif;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -30,30 +30,30 @@
 
 .url-history-item button {
     background: var(--primary-gradient);
-    color: var(--text-color);
+    color: #ffffff;
     border: none;
-    border-radius: var(--border-radius-circle);
-    width: var(--control-button-size);
-    height: var(--control-button-size);
-    min-width: var(--control-button-size);
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: var(--box-shadow-sm);
-    transition: all var(--transition-fast);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
     padding: 0;
 }
 
 .url-history-item button:hover {
     background: var(--reverse-gradient);
-    transform: scale(var(--scale-hover-lg));
+    transform: scale(1.1);
 }
 
 .url-history-item:hover {
-    background-color: var(--item-hover-bg);
+    background-color: #444;
     transform: translateY(-2px);
-    box-shadow: var(--box-shadow);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* 비활성화된 히스토리 아이템 스타일 */
@@ -64,5 +64,5 @@
 .url-history-item.disabled:hover {
     transform: none;
     box-shadow: none;
-    background-color: var(--item-bg);
+    background-color: #353535;
 }

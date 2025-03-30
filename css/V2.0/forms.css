@@ -6,73 +6,73 @@
 /* ----- 입력 필드 공통 스타일 ----- */
 .input-field {
     width: 100%;
-    padding: var(--content-padding-xs) var(--content-padding-sm);
-    border-radius: var(--border-radius-small);
-    background-color: var(--dark-bg);
-    color: var(--text-color);
-    font-family: var(--primary-font);
+    padding: clamp(5px, 1.5vw, 10px) clamp(8px, 2vw, 15px);
+    border-radius: 8px;
+    background-color: #1f1f1f;
+    color: #ffffff;
+    font-family: 'Freesentation-9Black', Arial, sans-serif;
     box-sizing: border-box;
     outline: none;
-    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .input-field:focus {
-    border-color: var(--primary-color);
-    box-shadow: var(--box-shadow-accent);
+    border-color: #6a11cb;
+    box-shadow: 0 6px 12px rgba(106, 17, 203, 0.5);
 }
 
 .input-field::placeholder {
-    color: var(--text-muted);
+    color: #aaaaaa;
 }
 
 /* 플레이리스트 URL 입력필드 */
 #playlistUrl {
     width: 100%;
-    padding: var(--content-padding-xs) var(--content-padding-sm);
-    border: 1px solid var(--text-color);
-    border-radius: var(--border-radius-small);
-    background-color: var(--dark-bg);
-    color: var(--text-color);
-    font-size: var(--small-font-size);
-    font-family: var(--primary-font);
+    padding: clamp(5px, 1.5vw, 10px) clamp(8px, 2vw, 15px);
+    border: 1px solid #ffffff;
+    border-radius: 8px;
+    background-color: #1f1f1f;
+    color: #ffffff;
+    font-size: clamp(14px, 2.5vw, 16px);
+    font-family: 'Freesentation-9Black', Arial, sans-serif;
     box-sizing: border-box;
     outline: none;
-    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
     margin-bottom: 2vh;
 }
 
 #playlistUrl:focus {
-    border-color: var(--primary-color);
-    box-shadow: var(--box-shadow-accent);
+    border-color: #6a11cb;
+    box-shadow: 0 6px 12px rgba(106, 17, 203, 0.5);
 }
 
 #playlistUrl::placeholder {
-    color: var(--text-muted);
+    color: #aaaaaa;
 }
 
 /* ----- 상태 컨테이너 ----- */
 .status-container {
-    margin-top: var(--content-padding);
-    background-color: var(--panel-bg);
-    padding: var(--content-padding-sm);
-    border-radius: var(--border-radius-small);
+    margin-top: clamp(10px, 3vw, 20px);
+    background-color: #2a2a2a;
+    padding: clamp(8px, 2vw, 15px);
+    border-radius: 8px;
     text-align: center;
-    box-shadow: var(--box-shadow);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 #statusMessage {
-    color: var(--text-color);
-    font-family: var(--secondary-font);
-    font-size: var(--small-font-size);
-    margin-bottom: var(--margin-lg);
+    color: #ffffff;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: clamp(14px, 2.5vw, 16px);
+    margin-bottom: 15px;
 }
 
 /* ----- 진행바 스타일 ----- */
 .progress-container {
     width: 100%;
-    height: var(--margin-sm);
-    background-color: var(--item-bg);
-    border-radius: var(--border-radius-small);
+    height: 8px;
+    background-color: #353535;
+    border-radius: 8px;
     overflow: hidden;
 }
 
@@ -80,6 +80,6 @@
     height: 100%;
     width: 0%;
     background: var(--primary-gradient);
-    border-radius: var(--border-radius-small);
-    transition: width var(--transition-fast);
+    border-radius: 8px;
+    transition: width 0.3s ease;
 }

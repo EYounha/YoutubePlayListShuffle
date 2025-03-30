@@ -74,29 +74,29 @@
 }
 
 .anim-fade-in {
-    animation: fadeIn var(--transition-fast) ease forwards;
+    animation: fadeIn 0.3s ease forwards;
 }
 
 .anim-fade-out {
-    animation: fadeOut var(--transition-fast) ease forwards;
+    animation: fadeOut 0.3s ease forwards;
 }
 
 .anim-slide-up {
-    animation: slideUp var(--transition-fast) ease forwards;
+    animation: slideUp 0.3s ease forwards;
 }
 
 /* ----- 토스트 메시지 ----- */
 .toast {
     position: fixed;
-    bottom: var(--margin-xl);
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--transparent-bg);
-    color: var(--text-color);
-    padding: var(--margin-sm) var(--margin-xl);
-    border-radius: var(--border-radius-small);
+    background: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+    padding: 8px 20px;
+    border-radius: 8px;
     opacity: 1;
-    transition: opacity var(--transition-medium);
+    transition: opacity 0.5s ease;
     z-index: 1000;
 }
 
@@ -106,21 +106,21 @@
 
 /* ----- 로딩 스피너 ----- */
 .spinner {
-    width: var(--spinner-size-small);
-    height: var(--spinner-size-small);
-    border: var(--spinner-border) solid rgba(255, 255, 255, 0.3);
-    border-top: var(--spinner-border) solid var(--text-color);
-    border-radius: var(--border-radius-circle);
+    width: 24px;
+    height: 24px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #ffffff;
+    border-radius: 50%;
     animation: spin 1s linear infinite;
     margin: -2px auto;
 }
 
 .status-spinner {
-    width: var(--spinner-size);
-    height: var(--spinner-size);
-    border: var(--spinner-border) solid rgba(255, 255, 255, 0.2);
-    border-top: var(--spinner-border) solid var(--primary-color);
-    border-radius: var(--border-radius-circle);
+    width: 30px;
+    height: 30px;
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-top: 4px solid #6a11cb;
+    border-radius: 50%;
     animation: spin 1s linear infinite;
-    margin: 0 auto var(--content-padding-xs);
+    margin: 0 auto clamp(5px, 1.5vw, 10px);
 }

@@ -5,14 +5,14 @@
 
 /* ----- 플레이리스트 컨테이너 ----- */
 .playlist-container {
-    background-color: var(--panel-bg);
-    padding: var(--content-padding);
-    border-radius: var(--border-radius);
-    margin: var(--margin-md) auto;
-    box-shadow: var(--box-shadow);
-    max-height: var(--player-height);
-    width: var(--container-width);
-    transition: transform var(--transition-fast);
+    background-color: #2a2a2a;
+    padding: clamp(10px, 3vw, 20px);
+    border-radius: 15px;
+    margin: clamp(10px, 3vw, 20px) auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-height: 400px;
+    width: min(600px, 95vw);
+    transition: transform 0.3s ease;
     /* 스크롤 최적화 속성 - scrollbars.css와 함께 적용 */
     will-change: transform;
     transform: translateZ(0);
@@ -21,7 +21,7 @@
 }
 
 .playlist-container:hover {
-    transform: scale(var(--scale-hover));
+    transform: scale(1.03);
 }
 
 /* 스크롤바 스타일은 scrollbars.css로 이동 */
@@ -32,22 +32,18 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: var(--container-width);
-    background-color: var(--dark-bg);
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow-hover);
-    padding: var(--content-padding);
-    margin: var(--margin-xl) 0 0 auto;
-    transition: transform var(--transition-fast);
-}
-
-.video-player-container:hover {
-    transform: scale(var(--scale-hover));
+    width: min(600px, 95vw);
+    background-color: #1f1f1f;
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    padding: clamp(10px, 3vw, 20px);
+    margin: clamp(20px, 5vw, 10px) 0 20px auto;
+    transition: transform 0.3s ease;
 }
 
 .video-player {
     width: 100%;
-    height: clamp(200px, 50vw, var(--player-height));
+    height: clamp(200px, 50vw, 400px);
     background-color: transparent;
-    border-radius: var(--border-radius-small);
+    border-radius: 8px;
 }
