@@ -8,7 +8,9 @@ let userScrolledRecently = false;  // 사용자가 최근에 스크롤했는지 
 let userScrollTimeout = null;      // 사용자 스크롤 타임아웃 ID
 const USER_SCROLL_TIMEOUT_MS = 1500; // 사용자 스크롤 후 자동 스크롤 비활성화 시간(ms)
 let scrollVisibilityCheckInterval = null; // 현재 재생 비디오 가시성 확인 인터벌
-let isScrollButtonVisible = false; // 스크롤 버튼이 현재 표시되고 있는지 여부
+
+// 전역 변수로 스크롤 버튼 가시성 상태 공유
+window.isScrollButtonVisible = false; // 스크롤 버튼이 현재 표시되고 있는지 여부
 
 /**
  * 스크롤 이벤트 리스너를 설정하는 함수
@@ -31,7 +33,7 @@ function setupScrollListener() {
         userScrollTimeout = setTimeout(() => {
             userScrolledRecently = false;
             // 스크롤 버튼이 표시되지 않을 때만 자동 스크롤 수행
-            if (!isScrollButtonVisible) {
+            if (!window.isScrollButtonVisible) {
                 scrollToCurrentVideo();
             }
         }, USER_SCROLL_TIMEOUT_MS);
@@ -57,7 +59,7 @@ function scrollToCurrentVideo(force = false) {
     if (userScrolledRecently && !force) return;
 
     // 스크롤 버튼이 표시중이고 강제 스크롤이 아니라면 자동 스크롤하지 않음
-    if (isScrollButtonVisible && !force) return;
+    if (window.isScrollButtonVisible && !force) return;
 
     const currentVideoElement = document.querySelector('.current-video');
     const playlistContainer = document.querySelector('.playlist-container');
@@ -77,7 +79,12 @@ function scrollToCurrentVideo(force = false) {
         });
 
         // 스크롤 후 현재 비디오는 보이게 되므로 버튼 숨기기
-        setTimeout(hideScrollToCurrentButton, 500);
+        // 직접 함수를 호출하지 않고 작업 요청만 보냄
+        setTimeout(() => {
+            if (typeof window.hideScrollToCurrentButton === 'function') {
+                window.hideScrollToCurrentButton();
+            }
+        }, 500);
     }
 }
 
@@ -105,7 +112,10 @@ function checkCurrentVideoVisibility() {
 
     // 필요한 요소가 없거나, 플레이리스트가 표시되지 않은 경우
     if (!playlistContainer || !currentVideoElement || getComputedStyle(playlistContainer).display === 'none') {
-        hideScrollToCurrentButton();
+        // 직접 함수 호출 대신 외부 함수 실행
+        if (typeof window.hideScrollToCurrentButton === 'function') {
+            window.hideScrollToCurrentButton();
+        }
         return;
     }
 
@@ -119,59 +129,16 @@ function checkCurrentVideoVisibility() {
         videoRect.bottom <= containerRect.bottom
     );
 
-    // 가시성에 따라 버튼 표시/숨김
+    // 가시성에 따라 버튼 표시/숨김 (직접 호출하지 않고 외부 함수 참조)
     if (isVisible) {
-        hideScrollToCurrentButton();
-    } else {
-        showScrollToCurrentButton();
-    }
-}
-
-/**
- * '현재 재생 영상으로 이동' 버튼을 표시하는 함수
- */
-function showScrollToCurrentButton() {
-    const scrollToCurrentBtn = document.getElementById('scrollToCurrentBtn');
-    if (!scrollToCurrentBtn) return;
-
-    // 이미 보이는 상태라면 무시
-    if (scrollToCurrentBtn.classList.contains('visible')) return;
-
-    // 버튼 상태 변수 업데이트
-    isScrollButtonVisible = true;
-
-    // 먼저 display 속성 설정
-    scrollToCurrentBtn.style.display = 'flex';
-
-    // 강제 리플로우 트리거하여 transition이 제대로 작동하도록 함
-    void scrollToCurrentBtn.offsetWidth;
-
-    // visible 클래스 추가
-    scrollToCurrentBtn.classList.add('visible');
-}
-
-/**
- * '현재 재생 영상으로 이동' 버튼을 숨기는 함수
- */
-function hideScrollToCurrentButton() {
-    const scrollToCurrentBtn = document.getElementById('scrollToCurrentBtn');
-    if (!scrollToCurrentBtn) return;
-
-    // 이미 숨겨진 상태라면 무시
-    if (!scrollToCurrentBtn.classList.contains('visible')) return;
-
-    // 버튼 상태 변수 업데이트
-    isScrollButtonVisible = false;
-
-    // visible 클래스 제거
-    scrollToCurrentBtn.classList.remove('visible');
-
-    // 애니메이션이 끝난 후 요소 숨기기
-    setTimeout(() => {
-        if (!scrollToCurrentBtn.classList.contains('visible')) {
-            scrollToCurrentBtn.style.display = 'none';
+        if (typeof window.hideScrollToCurrentButton === 'function') {
+            window.hideScrollToCurrentButton();
         }
-    }, 300);
+    } else {
+        if (typeof window.showScrollToCurrentButton === 'function') {
+            window.showScrollToCurrentButton();
+        }
+    }
 }
 
 /**
@@ -203,7 +170,7 @@ function onVideoEnded() {
 
     // 현재 비디오로 스크롤 (강제)
     // 버튼이 표시되지 않을 때만 스크롤하거나 강제 스크롤
-    if (!isScrollButtonVisible) {
+    if (!window.isScrollButtonVisible) {
         setTimeout(() => scrollToCurrentVideo(true), 300);
     }
 }
