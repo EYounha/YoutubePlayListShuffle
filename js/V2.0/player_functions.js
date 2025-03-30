@@ -1,5 +1,32 @@
 // --- YouTube Player 이벤트 핸들러 및 관련 함수 ---
 
+// 이벤트 중복 실행 방지를 위한 플래그들
+let isPlayerTransitioning = false; // 비디오 전환 중인지 추적하는 플래그
+let playerEventLock = false; // 이벤트 처리 잠금 플래그
+let playerEventTimeout = null; // 이벤트 처리 타임아웃 ID
+
+/**
+ * 이벤트 처리에 디바운싱을 적용하는 함수
+ * @param {Function} callback - 실행할 콜백 함수
+ * @param {number} delay - 디바운스 지연 시간(ms)
+ */
+function debouncePlayerEvent(callback, delay = 300) {
+    if (playerEventLock) return; // 이미 잠금 상태면 무시
+
+    playerEventLock = true; // 잠금 설정
+
+    // 기존 타임아웃 취소
+    if (playerEventTimeout) {
+        clearTimeout(playerEventTimeout);
+    }
+
+    // 새 타임아웃 설정
+    playerEventTimeout = setTimeout(() => {
+        callback();
+        playerEventLock = false; // 잠금 해제
+    }, delay);
+}
+
 /**
  * 플레이어 상태가 변경될 때 호출되는 이벤트 핸들러
  * @param {Object} event - YouTube 플레이어 이벤트 객체
@@ -11,9 +38,27 @@ function onPlayerStateChange(event) {
     // 동영상이 종료되면 다음 동영상 재생
     if (event.data === YT.PlayerState.ENDED) {
         console.log('비디오 재생 완료, 다음 비디오로 이동합니다.');
-        // 영상 종료 시 자동 스크롤 함수 호출
-        onVideoEnded();
-        nextVideo();
+
+        // 이미 전환 중이면 추가 이벤트 무시
+        if (isPlayerTransitioning) {
+            console.log('이미 비디오 전환 중입니다. 이벤트 무시.');
+            return;
+        }
+
+        // 전환 중 플래그 설정
+        isPlayerTransitioning = true;
+
+        // 디바운싱 적용하여 중복 실행 방지
+        debouncePlayerEvent(() => {
+            // 영상 종료 시 자동 스크롤 함수 호출
+            onVideoEnded();
+            nextVideo();
+
+            // 전환 완료 후 플래그 초기화 (약간의 지연 추가)
+            setTimeout(() => {
+                isPlayerTransitioning = false;
+            }, 500);
+        });
     }
 
     // 재생 상태 변경 시 UI 업데이트 시 스크롤 최적화 적용
@@ -31,6 +76,15 @@ function onPlayerStateChange(event) {
  */
 function onPlayerError(event) {
     console.error('플레이어 오류:', event.data);
+
+    // 이미 전환 중이면 추가 이벤트 무시
+    if (isPlayerTransitioning) {
+        console.log('이미 비디오 전환 중입니다. 오류 이벤트 무시.');
+        return;
+    }
+
+    // 전환 중 플래그 설정
+    isPlayerTransitioning = true;
 
     // 오류 코드 분석
     let errorMessage = "동영상 재생 중 오류가 발생했습니다.";
@@ -68,10 +122,15 @@ function onPlayerError(event) {
         }
     }
 
-    // 다음 동영상으로 더 빠르게 이동 (0.25초)
-    setTimeout(() => {
+    // 디바운싱 적용하여 안전하게 다음 동영상으로 이동 (1초 지연)
+    debouncePlayerEvent(() => {
         nextVideo();
-    }, 250);
+
+        // 전환 완료 후 플래그 초기화 (1.5초 지연)
+        setTimeout(() => {
+            isPlayerTransitioning = false;
+        }, 1500);
+    }, 1000); // 오류 발생 시 1초 지연 후 다음 영상으로 이동
 }
 
 // 플레이리스트 정보 표시 함수 래퍼 (기존 함수가 있다고 가정)

@@ -38,13 +38,18 @@ async function fetchAndDisplayPlaylist() {
     const playlistId = extractPlaylistId(playlistUrl);
     if (playlistId) {
         try {
-            updateStatus("재생목록 정보 불러오는 중...");
+            // 먼저 재생목록의 실제 영상 갯수를 API로 가져옴
+            updateStatus("재생목록 정보 확인 중...");
+            const totalVideosCount = await fetchPlaylistCount(playlistId);
+
+            updateStatus("재생목록 영상 불러오는 중...");
 
             // progressCallback 함수를 통해 불러오는 진행 상황을 업데이트
             playlistInfo = await fetchAllPlaylistInfo(playlistId, (loaded, total, pageNum) => {
                 const progress = total > 0 ? Math.round((loaded / total) * 100) : -1;
-                updateStatus(`재생목록 정보 불러오는 중... (${loaded}/${total} 영상, 페이지 ${pageNum})`, progress);
+                updateStatus(`${totalVideosCount}개 영상 중 ${loaded}개 불러옴 | ${pageNum}페이지`, progress);
             });
+            await new Promise(resolve => setTimeout(resolve, 500));
 
             if (playlistInfo.every(video => video.isError)) {
                 hideStatus();
@@ -54,6 +59,10 @@ async function fetchAndDisplayPlaylist() {
 
             updateStatus("재생목록 제목 불러오는 중...");
             const playlistTitle = await fetchPlaylistTitle(playlistId);
+
+            // 모든 영상 로드 완료 후 지연
+            updateStatus("불러오기 완료, 재생 준비중...", 100);
+            await new Promise(resolve => setTimeout(resolve, 100));
 
             // 재생목록 로드 및 재생 시작
             await startPlayback(playlistTitle, playlistUrl);
@@ -84,6 +93,9 @@ async function fetchAndDisplayPlaylist() {
  * @param {string} playlistUrl - 재생목록 URL (히스토리 저장용)
  */
 async function startPlayback(playlistTitle, playlistUrl) {
+    // 추가 0.5초 지연으로 자연스러운 전환 
+    await new Promise(resolve => setTimeout(resolve, 500));
+
     updateStatus("재생목록 표시 준비 중...");
     displayPlaylistInfo(playlistInfo, playlistTitle);
 

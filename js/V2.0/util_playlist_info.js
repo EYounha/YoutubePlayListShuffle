@@ -3,6 +3,7 @@
 // 캐시 객체 추가: API 사용량을 줄이기 위해 동일 재생목록에 대해 캐싱함
 const playlistCache = {};        // 재생목록 정보 캐시
 const playlistTitleCache = {};   // 재생목록 제목 캐시
+const playlistCountCache = {};   // 재생목록 영상 갯수 캐시
 
 /**
  * 재생목록 제목을 가져오는 함수
@@ -38,6 +39,38 @@ async function fetchPlaylistTitle(playlistId) {
 }
 
 /**
+ * 재생목록의 총 영상 갯수를 가져오는 함수
+ * @param {string} playlistId - YouTube 재생목록 ID
+ * @returns {Promise<number>} 재생목록 총 영상 갯수
+ */
+async function fetchPlaylistCount(playlistId) {
+    // 캐시된 결과가 있으면 바로 반환
+    if (playlistCountCache[playlistId]) {
+        return playlistCountCache[playlistId];
+    }
+
+    try {
+        const cleanApiKey = getapi.replace(/["']/g, '');
+        const apiUrl = `https://www.googleapis.com/youtube/v3/playlists?part=contentDetails&fields=items(contentDetails(itemCount))&id=${encodeURIComponent(playlistId)}&key=${cleanApiKey}`;
+        const data = await apiFetch(apiUrl);
+
+        // 데이터가 없으면 0 반환
+        if (!data.items || data.items.length === 0) {
+            return 0;
+        }
+
+        const count = data.items[0].contentDetails?.itemCount || 0;
+        playlistCountCache[playlistId] = count;
+        return count;
+
+    } catch (error) {
+        // 오류 발생 시 0 반환
+        console.error("재생목록 갯수 정보를 가져오는데 실패했습니다:", error);
+        return 0;
+    }
+}
+
+/**
  * 재생목록을 무작위로 섞는 함수
  * 
  * Fisher-Yates 알고리즘을 사용하여 재생목록의 순서를 무작위로 변경합니다.
@@ -68,3 +101,8 @@ function shufflePlaylistOrder() {
     playVideo(playlistInfo[currentVideoIndex].url);
     updateCurrentVideoInfo(playlistInfo[currentVideoIndex]);
 }
+
+// 전역으로 함수 노출
+window.fetchPlaylistTitle = fetchPlaylistTitle;
+window.fetchPlaylistCount = fetchPlaylistCount;
+window.shufflePlaylistOrder = shufflePlaylistOrder;
