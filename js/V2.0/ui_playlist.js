@@ -43,6 +43,7 @@ function displayPlaylistInfo(playlistInfo, playlistTitle) {
                             </div>
                         </div>
                     `;
+
                     entry.target.onclick = () => {
                         if (video.isError || video.eventError) {
                             // Private/Deleted Video인 경우 메시지만 표시하고 링크 열지 않음

@@ -11,6 +11,8 @@ function onPlayerStateChange(event) {
     // 동영상이 종료되면 다음 동영상 재생
     if (event.data === YT.PlayerState.ENDED) {
         console.log('비디오 재생 완료, 다음 비디오로 이동합니다.');
+        // 영상 종료 시 자동 스크롤 함수 호출
+        onVideoEnded();
         nextVideo();
     }
 
@@ -50,16 +52,26 @@ function onPlayerError(event) {
 
     showToast(errorMessage);
 
-    // 현재 비디오에 오류 표시
+    // 현재 비디오에 오류 표시 (리스트를 다시 그리지 않고 현재 항목만 업데이트)
     if (playlistInfo && playlistInfo[currentVideoIndex]) {
         playlistInfo[currentVideoIndex].eventError = true;
-        displayPlaylistInfo(playlistInfo, document.getElementById('playlistTitle').textContent);
+
+        // 올바른 선택자로 현재 항목 찾기
+        const currentItem = document.querySelector(`.video-item-container[data-index="${currentVideoIndex}"]`);
+        if (currentItem) {
+            console.log('에러 클래스 적용할 항목:', currentVideoIndex);
+
+            // CSS 클래스를 사용하여 스타일 적용
+            currentItem.classList.add('video-item-container-event-error');
+        } else {
+            console.warn('에러 표시할 항목을 찾을 수 없습니다:', currentVideoIndex);
+        }
     }
 
-    // 다음 동영상으로 이동
+    // 다음 동영상으로 더 빠르게 이동 (0.25초)
     setTimeout(() => {
         nextVideo();
-    }, 2000);
+    }, 250);
 }
 
 // 플레이리스트 정보 표시 함수 래퍼 (기존 함수가 있다고 가정)

@@ -135,3 +135,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+/* 상대적 위치 설정을 위한 클래스 */
+.position-relative {
+    position: relative;
+}

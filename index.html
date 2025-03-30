@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="images/icons/favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="shortcut icon" href="favicon.ico">
@@ -86,57 +86,40 @@
                 <div class="button-container">
                     <div class="control-button">
                         <button onclick="prevVideo()">
-                            <svg width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="#ffffff"
-                                stroke-linecap="round"
-                                stroke-linejoin="round" stroke-width="2">
-                                <polyline
-                                    points="15 18 9 12 15 6"></polyline>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                                <polyline points="15 18 9 12 15 6"></polyline>
                             </svg>
                         </button>
                         <span>이전곡</span>
                     </div>
                     <div class="control-button">
                         <button onclick="nextVideo()">
-                            <svg width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="#ffffff"
-                                stroke-linecap="round"
-                                stroke-linejoin="round" stroke-width="2">
-                                <polyline
-                                    points="9 18 15 12 9 6"></polyline>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                                <polyline points="9 18 15 12 9 6"></polyline>
                             </svg>
                         </button>
                         <span>다음곡</span>
                     </div>
                     <div class="control-button">
                         <button onclick="shufflePlaylistOrder()">
-                            <svg width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="#ffffff"
-                                stroke-linecap="round"
-                                stroke-linejoin="round" stroke-width="2">
-                                <polyline
-                                    points="16 3 21 3 21 8"></polyline>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                                <polyline points="16 3 21 3 21 8"></polyline>
                                 <line x1="4" y1="20" x2="21" y2="3"></line>
-                                <polyline
-                                    points="21 16 21 21 16 21"></polyline>
-                                <line x1="4" y1="4" x2="21" y2="21"></line>
+                                <polyline points="21 16 21 21 16 21"></polyline>
+                                <line x1="15" y1="15" x2="21" y2="21"></line>
+                                <line x1="4" y1="4" x2="9" y2="9"></line>
                             </svg>
                         </button>
                         <span>셔플</span>
                     </div>
                     <div class="control-button">
                         <button onclick="shareVideo()">
-                            <svg width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="#ffffff"
-                                stroke-linecap="round"
-                                stroke-linejoin="round" stroke-width="2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
                                 <circle cx="18" cy="5" r="3"></circle>
                                 <circle cx="6" cy="12" r="3"></circle>
                                 <circle cx="18" cy="19" r="3"></circle>
-                                <line x1="8.59" y1="13.51" x2="15.42"
-                                    y2="17.49"></line>
-                                <line x1="15.41" y1="6.51" x2="8.59"
-                                    y2="10.49"></line>
+                                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
                             </svg>
                         </button>
                         <span>공유</span>
@@ -155,8 +138,7 @@
         <div class="history-header">
             <h2>최근 입력 URL</h2>
             <button id="toggleHistoryBtn" class="toggle-history-btn" onclick="toggleHistoryPanel()">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" 
-                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
                     <polyline points="18 15 12 9 6 15"></polyline>
                 </svg>
             </button>
@@ -165,6 +147,15 @@
             <!-- 최근 URL 리스트 표시용 -->
         </div>
     </div>
+
+    <!-- 현재 재생 중인 영상으로 이동하는 버튼 -->
+    <button id="scrollToCurrentBtn" class="scroll-to-current-btn" onclick="scrollToCurrentVideo(true)" style="display:none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="margin-right: 8px;">
+            <polyline points="12 19 12 5"></polyline>
+            <polyline points="5 12 12 5 19 12"></polyline>
+        </svg>
+        <span>현재 영상으로 이동</span>
+    </button>
 
     <script>
         // 페이지 로드 시 히스토리 패널 초기화

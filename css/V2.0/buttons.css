@@ -156,3 +156,63 @@ button:hover::before {
     transform: scale(var(--scale-hover-lg));
     animation: shake 0.3s;
 }
+
+/* ----- 현재 재생중인 영상으로 이동 버튼 ----- */
+.scroll-to-current-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: 30px;
+    background: var(--primary-gradient);
+    color: var(--text-color);
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    transform: translate(-50%, 100px);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.scroll-to-current-btn.visible {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.scroll-to-current-btn:hover {
+    background: var(--reverse-gradient);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    transform: translate(-50%, 0) scale(var(--scale-hover));
+}
+
+.scroll-to-current-btn:active {
+    transform: translate(-50%, 2px);
+}
+
+.scroll-to-current-btn.visible:hover {
+    transform: translate(-50%, 0) scale(var(--scale-hover));
+}
+
+.scroll-to-current-btn.visible:active {
+    transform: translate(-50%, 2px);
+}
+
+/* 버튼 퇴장 애니메이션 - 아래쪽으로 사라지게 설정 */
+.scroll-to-current-btn:not(.visible) {
+    opacity: 0;
+    transform: translate(-50%, 100px);
+    /* 아래쪽으로 사라짐 */
+}
+
+@media (max-width: 768px) {
+    .scroll-to-current-btn {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+}

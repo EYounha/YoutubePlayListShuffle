@@ -17,12 +17,6 @@ function toggleHistoryVisibility(show) {
         // 축소된 상태로 시작하기
         historyWrapper.classList.add('collapsed');
         historyWrapper.classList.remove('expanded');
-
-        // 토글 버튼 아이콘 업데이트
-        const toggleBtn = document.getElementById('toggleHistoryBtn');
-        if (toggleBtn) {
-            toggleBtn.querySelector('svg polyline').setAttribute('points', '18 15 12 9 6 15');
-        }
     } else {
         historyWrapper.style.display = 'none';
     }
@@ -52,24 +46,20 @@ function setHistoryItemsEnabled(enabled) {
 /**
  * 히스토리 패널을 펼치고 접는 토글 함수
  * 
- * 히스토리 패널의 확장/축소 상태를 전환하고 토글 버튼의 아이콘을 업데이트합니다.
+ * 히스토리 패널의 확장/축소 상태를 전환합니다.
  */
 function toggleHistoryPanel() {
     const historyContainer = document.getElementById('historyContainerWrapper');
-    const toggleBtn = document.getElementById('toggleHistoryBtn');
+    if (!historyContainer) return;
 
     if (historyContainer.classList.contains('collapsed')) {
         // 접힌 상태에서 펼치기
         historyContainer.classList.remove('collapsed');
         historyContainer.classList.add('expanded');
-        // 아이콘 회전 (위쪽 화살표)
-        toggleBtn.querySelector('svg polyline').setAttribute('points', '18 9 12 15 6 9');
     } else {
         // 펼쳐진 상태에서 접기
         historyContainer.classList.remove('expanded');
         historyContainer.classList.add('collapsed');
-        // 아이콘 회전 (아래쪽 화살표)
-        toggleBtn.querySelector('svg polyline').setAttribute('points', '18 15 12 9 6 15');
     }
 }
 
