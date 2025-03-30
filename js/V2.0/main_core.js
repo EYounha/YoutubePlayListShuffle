@@ -9,6 +9,12 @@
  * 3. 재생목록 불러오기 시작
  */
 function validateAndPlay() {
+    // 로딩 중인지 확인
+    if (typeof isLoading !== 'undefined' && isLoading === true) {
+        console.log('이미 로딩 중입니다.');
+        return;
+    }
+
     const urlField = document.getElementById('playlistUrl');
     const rawUrl = urlField.value.trim();
 
