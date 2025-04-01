@@ -52,6 +52,8 @@ function onPlayerStateChange(event) {
         debouncePlayerEvent(() => {
             // 영상 종료 시 자동 스크롤 함수 호출
             onVideoEnded();
+
+            // 순차적으로 다음 영상 재생 (개선된 nextVideo 함수 사용)
             nextVideo();
 
             // 전환 완료 후 플래그 초기화 (약간의 지연 추가)
@@ -64,6 +66,11 @@ function onPlayerStateChange(event) {
     // 재생 상태 변경 시 UI 업데이트 시 스크롤 최적화 적용
     if (event.data === YT.PlayerState.PLAYING) {
         optimizePlaylistScroll();
+
+        // SponsorBlock 이벤트 핸들러 호출 (SponsorBlock 기능 통합)
+        if (typeof onPlayerStateChangeWithSponsorBlock === 'function') {
+            onPlayerStateChangeWithSponsorBlock(event);
+        }
     }
 }
 
