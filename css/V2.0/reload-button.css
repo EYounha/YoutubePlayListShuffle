@@ -1,0 +1,81 @@
+/* 
+ * reload-button.css - V2.0
+ * 스크립트 및 스타일 재로드 버튼 스타일
+ */
+
+/* 재로드 버튼 스타일 */
+.reload-scripts-button {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+    background-color: var(--button-background, #3a3a3a);
+    color: var(--button-text-color, #ffffff);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.reload-scripts-button:hover {
+    background-color: var(--button-hover-background, #666666);
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.reload-scripts-button:active {
+    transform: scale(0.95);
+}
+
+.reload-scripts-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* 마우스를 영역에 올렸을 때만 보이게 함 */
+.reload-scripts-trigger-area {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 80px;
+    z-index: 9998;
+}
+
+.reload-scripts-trigger-area:hover .reload-scripts-button {
+    opacity: 1;
+}
+
+/* 재로드 중 애니메이션 효과 */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.reloading {
+    animation: spin 1s linear infinite;
+}
+
+/* 다크 모드 대응 */
+@media (prefers-color-scheme: dark) {
+    .reload-scripts-button {
+        background-color: var(--button-background-dark, #555555);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    }
+
+    .reload-scripts-button:hover {
+        background-color: var(--button-hover-background-dark, #777777);
+    }
+}

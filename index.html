@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <script>window.console = {log: function() {},warn: function() {},error: function() {},info: function() {},debug: function() {}};</script>
+    
+    <!-- 디버그 모드 관련 JS (가장 먼저 로드해야 함) -->
+    <script type="text/javascript" src="js/V2.0/debug_mode.js"></script>
+    
+    <!-- YouTube API 로드 -->
     <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
 
     <!-- 기본 API 및 인증 관련 JS -->
@@ -29,6 +33,7 @@
     <script type="text/javascript" src="js/V2.0/status_functions.js"></script>
     <script type="text/javascript" src="js/V2.0/playlist_error_handlers.js"></script>
     <script type="text/javascript" src="js/V2.0/playlist_loader.js"></script>
+    <script type="text/javascript" src="js/V2.0/reload_scripts.js"></script>
     <script type="text/javascript" src="js/V2.0/main_core.js"></script>
     
     <!-- CSS V2.0 -->
@@ -40,6 +45,7 @@
     <link rel="stylesheet" href="css/V2.0/scroll-button.css">
     <link rel="stylesheet" href="css/V2.0/history.css">
     <link rel="stylesheet" href="css/V2.0/controls.css">
+    <link rel="stylesheet" href="css/V2.0/reload-button.css">
     <link rel="stylesheet" href="css/V2.0/forms.css">
     <link rel="stylesheet" href="css/V2.0/historyItems.css">
     <link rel="stylesheet" href="css/V2.0/layout.css">
