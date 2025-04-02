@@ -42,6 +42,17 @@ async function fetchAllPlaylistInfo(playlistId, progressCallback = null) {
             const cleanApiKey = getapi.replace(/["']/g, '');
             const apiUrl = baseUrl + `&key=${cleanApiKey}` + pageParam;
 
+            // Sanitize API key from potential logs
+            console.log = function (...args) {
+                const sanitizedArgs = args.map(arg => {
+                    if (typeof arg === 'string' && arg.includes(cleanApiKey)) {
+                        return arg.replace(cleanApiKey, '[API KEY REDACTED]');
+                    }
+                    return arg;
+                });
+                originalConsoleLog.apply(console, sanitizedArgs);
+            };
+
             const data = await apiFetch(apiUrl);
 
             // 항목이 없으면 처리 중단

@@ -5,6 +5,18 @@ const playlistCache = {};        // 재생목록 정보 캐시
 const playlistTitleCache = {};   // 재생목록 제목 캐시
 const playlistCountCache = {};   // 재생목록 영상 갯수 캐시
 
+// Sanitize API key from potential logs
+const originalConsoleLog = console.log;
+console.log = function (...args) {
+    const sanitizedArgs = args.map(arg => {
+        if (typeof arg === 'string' && arg.includes(getapi.replace(/["']/g, ''))) {
+            return arg.replace(getapi.replace(/["']/g, ''), '[API KEY REDACTED]');
+        }
+        return arg;
+    });
+    originalConsoleLog.apply(console, sanitizedArgs);
+};
+
 /**
  * 재생목록 제목을 가져오는 함수
  * @param {string} playlistId - YouTube 재생목록 ID

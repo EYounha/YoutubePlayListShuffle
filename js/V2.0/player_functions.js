@@ -28,6 +28,49 @@ function debouncePlayerEvent(callback, delay = 300) {
 }
 
 /**
+ * 현재 재생 중인 영상의 인덱스를 표시하는 함수
+ */
+function displayCurrentVideoIndex() {
+    if (!playlistInfo || playlistInfo.length === 0) {
+        console.warn('재생목록 정보가 없습니다.');
+        return;
+    }
+
+    const currentIndexDisplay = document.getElementById('currentIndexDisplay');
+    if (!currentIndexDisplay) {
+        console.warn('currentIndexDisplay 요소를 찾을 수 없습니다.');
+        return;
+    }
+
+    currentIndexDisplay.textContent = `현재 재생 중: ${currentVideoIndex + 1} / ${playlistInfo.length}`;
+}
+
+/**
+ * 안전하게 다음 비디오로 이동하는 함수
+ * 중복 호출을 방지하고 디바운싱 로직을 적용합니다.
+ */
+function safeNextVideo() {
+    if (isPlayerTransitioning) {
+        console.log('이미 비디오 전환 중입니다. safeNextVideo 호출 무시.');
+        return;
+    }
+
+    isPlayerTransitioning = true;
+
+    debouncePlayerEvent(() => {
+        try {
+            nextVideo();
+            displayCurrentVideoIndex(); // 현재 인덱스 업데이트
+        } catch (error) {
+            console.error('safeNextVideo 실행 중 오류 발생:', error);
+        } finally {
+            // Ensure the flag is reset even if an error occurs
+            isPlayerTransitioning = false;
+        }
+    }, 300); // Reduced delay to make transitions smoother
+}
+
+/**
  * 플레이어 상태가 변경될 때 호출되는 이벤트 핸들러
  * @param {Object} event - YouTube 플레이어 이벤트 객체
  * 
@@ -38,34 +81,13 @@ function onPlayerStateChange(event) {
     // 동영상이 종료되면 다음 동영상 재생
     if (event.data === YT.PlayerState.ENDED) {
         console.log('비디오 재생 완료, 다음 비디오로 이동합니다.');
-
-        // 이미 전환 중이면 추가 이벤트 무시
-        if (isPlayerTransitioning) {
-            console.log('이미 비디오 전환 중입니다. 이벤트 무시.');
-            return;
-        }
-
-        // 전환 중 플래그 설정
-        isPlayerTransitioning = true;
-
-        // 디바운싱 적용하여 중복 실행 방지
-        debouncePlayerEvent(() => {
-            // 영상 종료 시 자동 스크롤 함수 호출
-            onVideoEnded();
-
-            // 순차적으로 다음 영상 재생 (개선된 nextVideo 함수 사용)
-            nextVideo();
-
-            // 전환 완료 후 플래그 초기화 (약간의 지연 추가)
-            setTimeout(() => {
-                isPlayerTransitioning = false;
-            }, 500);
-        });
+        safeNextVideo();
     }
 
     // 재생 상태 변경 시 UI 업데이트 시 스크롤 최적화 적용
     if (event.data === YT.PlayerState.PLAYING) {
         optimizePlaylistScroll();
+        displayCurrentVideoIndex(); // 현재 인덱스 업데이트
 
         // SponsorBlock 이벤트 핸들러 호출 (SponsorBlock 기능 통합)
         if (typeof onPlayerStateChangeWithSponsorBlock === 'function') {
@@ -84,16 +106,7 @@ function onPlayerStateChange(event) {
 function onPlayerError(event) {
     console.error('플레이어 오류:', event.data);
 
-    // 이미 전환 중이면 추가 이벤트 무시
-    if (isPlayerTransitioning) {
-        console.log('이미 비디오 전환 중입니다. 오류 이벤트 무시.');
-        return;
-    }
-
-    // 전환 중 플래그 설정
-    isPlayerTransitioning = true;
-
-    // 오류 코드 분석
+    // 오류 발생 시에도 항상 다음 비디오로 이동하도록 수정
     let errorMessage = "동영상 재생 중 오류가 발생했습니다.";
     switch (event.data) {
         case 2:
@@ -117,27 +130,14 @@ function onPlayerError(event) {
     if (playlistInfo && playlistInfo[currentVideoIndex]) {
         playlistInfo[currentVideoIndex].eventError = true;
 
-        // 올바른 선택자로 현재 항목 찾기
         const currentItem = document.querySelector(`.video-item-container[data-index="${currentVideoIndex}"]`);
         if (currentItem) {
-            console.log('에러 클래스 적용할 항목:', currentVideoIndex);
-
-            // CSS 클래스를 사용하여 스타일 적용
             currentItem.classList.add('video-item-container-event-error');
-        } else {
-            console.warn('에러 표시할 항목을 찾을 수 없습니다:', currentVideoIndex);
         }
     }
 
-    // 디바운싱 적용하여 안전하게 다음 동영상으로 이동 (1초 지연)
-    debouncePlayerEvent(() => {
-        nextVideo();
-
-        // 전환 완료 후 플래그 초기화 (1.5초 지연)
-        setTimeout(() => {
-            isPlayerTransitioning = false;
-        }, 1500);
-    }, 1000); // 오류 발생 시 1초 지연 후 다음 영상으로 이동
+    // 오류 발생 시에도 항상 다음 비디오로 이동
+    safeNextVideo();
 }
 
 // 플레이리스트 정보 표시 함수 래퍼 (기존 함수가 있다고 가정)
