@@ -164,6 +164,10 @@ function playVideo(videoUrl) {
 function onPlayerError(event) {
     console.error("동영상 재생 오류 발생:", event);
 
+    // 추가 디버깅 정보 출력
+    console.error("오류 코드:", event.data);
+    console.error("현재 플레이어 상태:", player.getPlayerState());
+
     // Increment the consecutive error count
     consecutiveErrorCount++;
 
